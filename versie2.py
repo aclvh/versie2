@@ -300,14 +300,21 @@ def grafieken():
     
     ###################################################################################################################
     # Plot Dalc and G3
-    st.write("""
-        ## Invloed van dagelijks alcoholgebruik op studieresultaten""")
-    
+    df['Dalc'].replace([1,2,3,4,5],
+                       ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
+                       inplace=True)
+
     fig = px.box(df,
                  x = "Dalc",
                  y = "G3")
+
+    fig.update_layout(title = 'Relatie tussen alcoholgebruik (door de weeks) en de hoogte van de cijfers',
+                      xaxis_title = 'Door de weeks alcoholgebruik',
+                      yaxis_title = 'Eindcijfer')
+    
     st.plotly_chart(fig)
     
+    ###################################################################################################################
 
 
 page_names_to_funcs = {
