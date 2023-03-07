@@ -104,22 +104,20 @@ def data_analyse():
 
         Aantal missing values in wiskunde dataframe:  0
         Aantal missing values in portugees dataframe:  0
-
-        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen, maar eerst zal gekeken 
-        worden naar de eigenschappen van de kolommen voor beide datasets los van elkaar.""")    
+        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen""")    
     
     code_desc_math = """Maths.describe()"""
     st.code(code_desc_math, language = 'python')
     math_desc = Maths.describe()
-    st.write("Hieruit volgt het volgende dataframe:", math_desc)
+    st.write(math_desc)
     
     code_desc_port = """"Portugese.describe()"""
     st.code(code_desc_port, language = 'python')
     port_desc = Portugese.describe()
-    st.write("Hieruit volgt het volgende dataframe:", port_desc)
+    st.write(port_desc)
     
     # Datasets samenvoeegen
-    st.write(""""
+    st.write("""
         Aangezien beide tabellen exact dezelfde kolommen bevatten (ze zijn ook hetzelfde geschreven) kunnen de datasets
         worden gejoind met behulp van 'concat'. Echter is dan niet meer zichtbaar welke rij over welk vak gaat.
         Vandaar dat eerst een extra kolom wordt toegevoegd aan beide dataset waarin te zien is over welk vak die rij gaat.
