@@ -1,4 +1,4 @@
-ipython @ file:///C:/b/abs_d4_i9p0_36/croot/ipython_1674681439495/work
+ipython==8.8.0
 numpy==1.24.2
 openpyxl==3.1.1
 pandas==1.5.3
