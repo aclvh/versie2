@@ -153,7 +153,8 @@ def grafieken():
     st.write("""
         Op deze pagina zijn grafieken te vinden van situaties die team 10 graag wilde onderzoeken.
         Heeft de hoeveelheid dagelijkse alcoholgebruik invloed op het uiteindelijke cijfer? Halen leerlingen minder hoge
-        cijfers ze een langere reistijd hebben naar school? Dit zijn enkele vragen die beantwoord worden op deze pagina.""")
+        cijfers ze een langere reistijd hebben naar school? Dit zijn enkele vragen die beantwoord worden op deze pagina.
+        Om informatie te krijgen over een specifiek vak **👈 Selecteer dan een keuze uit de balk hiernaast**""")
     
     ## Data inladen m.b.v. csv
     Maths = pd.read_csv('Maths.csv')
@@ -184,7 +185,9 @@ def grafieken():
     df = df[df['subject']==InvoerVak]
     
     # Plot traveltime and G3
+    
     st.write("""
+        ## Invloed van reistijd op studieresultaten
         In onderstaande grafiek worden de resultaten van een vak onderverdeeld in de categorieën A t/m F. Vervolgens is
         af te lezen hoeveel procent van de leerlingen dat eindcijfer hebben behaald.""")
     
@@ -226,7 +229,12 @@ def grafieken():
         Uit deze grafiek blijkt dus dat mensen minder hoge cijfers halen wanneer zij een langere reistijd naar school hebben.
         """)
     
+    
+    
     # Plot Dalc and G3
+    st.write("""
+        ## Invloed van dagelijks alcoholgebruik op studieresultaten""")
+    
     fig = px.box(df,
                  x = "Dalc",
                  y = "G3")
