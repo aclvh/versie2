@@ -154,7 +154,9 @@ def grafieken():
         Op deze pagina zijn grafieken te vinden van situaties die team 10 graag wilde onderzoeken.
         Heeft de hoeveelheid dagelijkse alcoholgebruik invloed op het uiteindelijke cijfer? Halen leerlingen minder hoge
         cijfers ze een langere reistijd hebben naar school? Dit zijn enkele vragen die beantwoord worden op deze pagina.
-        Om informatie te krijgen over een specifiek vak **👈 Selecteer dan een keuze uit de balk hiernaast**""")
+        Eerst zullen twee grafieken worden getoond met informatie over beide vakken.
+        Vervolgens kan voor verschillende grafieken informatie gekregen worden over een specifiek vak
+        **👈 Hiervoor kan een keuze worden gemaakt in de balk hiernaast**""")
     
     ## Data inladen m.b.v. csv
     Maths = pd.read_csv('Maths.csv')
@@ -166,7 +168,7 @@ def grafieken():
 
     # Dataframes math en port samenvoegen
     # https://datacarpentry.org/python-socialsci/11-joins/index.html#:~:text=We%20can%20join%20columns%20from,want%20using%20the%20how%20parameter.
-    df = pd.concat([Maths, Portugese])
+    df_sameng = pd.concat([Maths, Portugese])
 
     cat_G3 = []
     for G3 in df["G3"]:
@@ -179,11 +181,20 @@ def grafieken():
     # Lijst als kolom toevoegen aan dataset
     df["Cat_G3"] = cat_G3
     
-    ###########################################################
-    fig = px.box(df,
+    # Keuezevak voor vak: Wiskunde of Portugees
+    InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
+    df = df_sameng[df_sameng['subject']==InvoerVak]
+    
+    #############################################################################################################
+    # Grafiek over verdeling van de eindcijfers per vak en geslacht
+    st.write("""
+        ## Verdeling van de eindcijfers per vak en geslacht
+        In onderstaande grafiek worden de resultaten van een vak vergeleken voor elk geslacht.""")
+    
+    fig = px.box(df_sameng,
              x = "sex",
              y = "G3",
-             title = "Verdeling cijfers per vak en geslacht",
+             title = "Verdeling eindcijfers per vak en geslacht",
              color = 'sex',
              facet_col  = 'subject',
              labels = {'G3': 'Eindcijfer',
@@ -195,14 +206,13 @@ def grafieken():
     fig.update_xaxes(showticklabels = False)
 
     st.plotly_chart(fig)
-    ################################################################
     
-    # Keuezevak voor vak: Wiskunde of Portugees
-    InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
-    df = df[df['subject']==InvoerVak]
+    st.write("""
+        Uit deze grafiek blijkt dat vrouwen over het algemeen iets hogere cijfers halen bij Portugees dan mannen.
+        Ook blijkt dat mannen over het algemeen iets hogere cijfers halen bij wiskunde van vrouwen.""")
     
+    ###################################################################################################################
     # Plot traveltime and G3
-    
     st.write("""
         ## Invloed van reistijd op studieresultaten
         In onderstaande grafiek worden de resultaten van een vak onderverdeeld in de categorieën A t/m F. Vervolgens is
