@@ -48,6 +48,7 @@ def data_analyse():
     st.markdown(f'# {list(page_names_to_funcs.keys())[1]}')
     st.write("# Case 2 – Tech report/Blog")
     
+    
     # Informatie over wat er te lezen is op deze pagina
     st.write("""
         Op deze pagina is informatie te lezen over de volgende twee datasets van kaggele:
@@ -63,19 +64,21 @@ def data_analyse():
         Met behulp van welke code dit gedaan wordt is hieronder te zien:
         """)
     
+    
     # API en data inladen
     code_API ="""
-        ## Data inladen m.b.v API
+        # Data inladen m.b.v API
         !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
         !unzip mxmh-survey-results.zip
 
-        ## Data inladen m.b.v. csv
+        # Data inladen m.b.v. csv
         Maths = pd.read_csv('Maths.csv')
         Portugese = pd.read_csv('Portuguese.csv')"""
     st.code(code_API, language = 'python')
     
     Maths = pd.read_csv('Maths.csv')
     Portugese = pd.read_csv('Portuguese.csv')
+    
     
     # Kolommen datasets en extra informatie
     st.write("""
@@ -99,22 +102,22 @@ def data_analyse():
     st.code(code_formaat, language = 'python')
     
     st.write("""
-        Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.
-        Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
+        * Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.
+        * Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
 
-        Aantal missing values in wiskunde dataframe:  0
-        Aantal missing values in portugees dataframe:  0
-        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen""")    
+        * Aantal missing values in wiskunde dataframe:  0
+        * Aantal missing values in portugees dataframe:  0""")    
     
     code_desc_math = """Maths.describe()"""
     st.code(code_desc_math, language = 'python')
     math_desc = Maths.describe()
     st.write(math_desc)
     
-    code_desc_port = """"Portugese.describe()"""
+    code_desc_port = """Portugese.describe()"""
     st.code(code_desc_port, language = 'python')
     port_desc = Portugese.describe()
     st.write(port_desc)
+    
     
     # Datasets samenvoeegen
     st.write("""
@@ -124,7 +127,7 @@ def data_analyse():
         Hieronder wordt het stuk code laten zien waarmee dat wordt gedaan en wordt ook laten zien hoe vervolgens de datasets
         samengevoegd zijn.""")
     
-    code_samenvoegen = """"
+    code_samenvoegen = """
         # Voor het samenvoegen van de dataframes wil je straks nog wel weten welke rij bij welk vak hoorde
         Maths['subject'] = 'Wiskunde'
         Portugese['subject'] = 'Portugees'
@@ -138,7 +141,11 @@ def data_analyse():
     Portugese['subject'] = 'Portugees'
     df = pd.concat([Maths, Portugese])
     
-    st.write("De dataset ziet er nu als volgt uit:", df)
+    aantal_rijen = df.shape[0]
+    aantal_kolommen = df.shape[1]
+    
+    st.write("De dataset ziet er nu als volgt uit:", df, "hij bestaat nu uit ", aantal_rijen, " rijen en ", aantal_kolommen,
+            " aantal_kolommen.")
     
 
 def grafieken():
