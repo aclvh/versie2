@@ -17,16 +17,19 @@ def intro():
     Streamlit is een open-source app framework wat specifiek is gemaakt voor
     Machine Learning en Data Science projecten.
     In dit project is een data-analyse gedaan over 2 datasets van kaggle.
-    Om hier meer informatie over te lezen **👈 Selecteer dan een kleuze uit de balk hiernaast**.
+    Hieronder zal de opdrachtomschrijving van het project worden uitgelegd.
+    Om vervolgens meer informatie over het project te lezen **👈 Selecteer dan een keuze uit de balk hiernaast**.
     
-    ### Opdrachtomschrijving
+    ## Opdrachtomschrijving
     Voor deze opdracht moet een tech report (blogpost) worden geschreven over een dataset naar keuze.
-    Voor deze opdracht is zijnn de datasets math.csv en portugese.csv gekozen. Deze gaan over de 'alcohol-effects-on-study' en zijn te vinden op kaggle met behulp van onderstaande link:
+    Voor deze opdracht is zijn de datasets Maths.csv en Portugese.csv gekozen. Deze gaan over de 'alcohol-effects-on-study'
+    en zijn te vinden op kaggle met behulp van onderstaande link:
 
     https://www.kaggle.com/datasets/whenamancodes/alcohol-effects-on-study
     
     * De data moet ingeladen worden via een openbare API.
-        * Geprobeerd moet worden om meerdere datasets te combineren. (In dit geval worden de datasets over wiskunde en portugees dus gecombineerd.)
+        * Geprobeerd moet worden om meerdere datasets te combineren. (In dit geval worden de datasets over wiskunde en
+        Portugees dus gecombineerd.)
         * De data moet grondig verkend worden.
 
     * De data moet grondig geanalyseerd en bewerkt worden. Vervolgens worden de interessante inzichten worden gedeelt.
@@ -37,9 +40,7 @@ def intro():
 
     * Je ondersteunt je verhaal met interactieve visualisaties middels streamlit
 
-    * Je levert een gepubliceerde streamlit app op
-    """
-    )
+    * Je levert een gepubliceerde streamlit app op""")
 
 def data_analyse():
     import streamlit as st
@@ -149,21 +150,22 @@ def grafieken():
     import plotly.express as px
     
     st.markdown(f"# {list(page_names_to_funcs.keys())[2]}")
-    st.write(
-        """
-        Hier komen grafieken te staan.""")
+    st.write("""
+        Op deze pagina zijn grafieken te vinden van situaties die team 10 graag wilde onderzoeken.
+        Heeft de hoeveelheid dagelijkse alcoholgebruik invloed op het uiteindelijke cijfer? Halen leerlingen minder hoge
+        cijfers ze een langere reistijd hebben naar school? Dit zijn enkele vragen die beantwoord worden op deze pagina.""")
     
     ## Data inladen m.b.v. csv
-    math = pd.read_csv('Maths.csv')
-    port = pd.read_csv('Portuguese.csv')
+    Maths = pd.read_csv('Maths.csv')
+    Portugese = pd.read_csv('Portuguese.csv')
 
     # Voor het samenvoegen van de dataframes wil je straks nog wel weten welke rij bij welk vak hoorde
-    math['subject'] = 'Wiskunde'
-    port['subject'] = 'Portugees'
+    Maths['subject'] = 'Wiskunde'
+    Portugese['subject'] = 'Portugees'
 
     # Dataframes math en port samenvoegen
     # https://datacarpentry.org/python-socialsci/11-joins/index.html#:~:text=We%20can%20join%20columns%20from,want%20using%20the%20how%20parameter.
-    df = pd.concat([math, port])
+    df = pd.concat([Maths, Portugese])
 
     cat_G3 = []
     for G3 in df["G3"]:
@@ -173,16 +175,18 @@ def grafieken():
         elif G3 < 16: cat_G3.append("C")
         elif G3 < 18: cat_G3.append("B")    
         elif G3 <= 20: cat_G3.append("A")
-
-
     # Lijst als kolom toevoegen aan dataset
     df["Cat_G3"] = cat_G3
     
     
+    # Keuezevak voor vak: Wiskunde of Portugees
     InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
     df = df[df['subject']==InvoerVak]
-
     
+    # Plot traveltime and G3
+    st.write("""
+        In onderstaande grafiek worden de resultaten van een vak onderverdeeld in de categorieën A t/m F. Vervolgens is
+        af te lezen hoeveel procent van de leerlingen dat eindcijfer hebben behaald.""")
     
     # Dataframe plot traveltime and G3
     selectie = df[['traveltime','Cat_G3']].groupby(['traveltime','Cat_G3']).value_counts()
@@ -213,11 +217,14 @@ def grafieken():
                       yaxis_title = 'Percentage',
                       legend_title = 'Cijfergroep')
     fig.update_yaxes(range = [0,hoogte_plot])
-
+    
     fig['layout'].pop('updatemenus')
-
+    
     st.plotly_chart(fig)
     
+    st.write("""
+        Uit deze grafiek blijkt dus dat mensen minder hoge cijfers halen wanneer zij een langere reistijd naar school hebben.
+        """)
     
     # Plot Dalc and G3
     fig = px.box(df,
