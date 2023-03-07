@@ -84,7 +84,7 @@ def data_analyse():
     variabelen = pd.read_excel("variables.xlsx", index_col = 0)
     st.table(variabelen)
 
-    code_formaat = """"
+    code_formaat = """
         # Aantal rijen en kolommen dataframe printen
         print('Wiskunde dataframe bestaat uit ', Maths.shape[0], ' rijen en ', Maths.shape[1], ' kolommen.')
         print('Portugees dataframe bestaat uit ', Portugese.shape[0], ' rijen en ', Portugese.shape[1], ' kolommen.')
@@ -98,7 +98,7 @@ def data_analyse():
         print('Wanneer de dataframes samen worden gevoegd bestaat deze uit ', totaal_rijen_samengevoegd_straks, 'aantal rijen')"""
     st.code(code_formaat, language = 'python')
     
-    st.write(""""
+    st.write("""
         Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.
         Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
 
