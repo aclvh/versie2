@@ -106,6 +106,10 @@ def grafieken():
     # Lijst als kolom toevoegen aan dataset
     df["Cat_G3"] = cat_G3
     
+    
+    IvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
+    VakSelectie = df[df['subject']==InvoerVak]
+    
 #     keuze = 'Wiskunde'
 
 #     perc = df[df['subject'] == keuze].value_counts('Cat_G3') / df[df['subject'] == keuze].shape[0] * 100
