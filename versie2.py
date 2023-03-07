@@ -49,8 +49,7 @@ def data_analyse():
     
     st.write("# Case 2 – Tech report/Blog")
     
-    st.write(
-        """
+    st.write("""
         Op deze pagina is informatie te lezen over de volgende twee datasets van kaggele:
         * Maths.csv
         * Portugese.csv
@@ -60,25 +59,32 @@ def data_analyse():
         
         De datasets zijn ingeladen met behulp van een API. Door een aantal dingen juist te installeren op een laptop kan een API command
         van de datasets worden gekopieerd vanaf Kaggle. Met behulp van deze link kunnen de datasets worden ingeladen op de computer,
-        maar kunnen deze ook geünzipt worden. Met behulp van welke code dit gedaan wordt is hieronder te zien:
+        maar kunnen deze ook geünzipt worden. Hierna zullen ze met behulp van pd.read_csv worden ingelezen.
+        Met behulp van welke code dit gedaan wordt is hieronder te zien:
         """
     )
     
-    code_API = '''## Data inladen m.b.v API
+    code_API ="""
+    ## Data inladen m.b.v API
     !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
-    !unzip mxmh-survey-results.zip'''
+    !unzip mxmh-survey-results.zip
+    
+    ## Data inladen m.b.v. csv
+    Maths = pd.read_csv('Maths.csv')
+    Portugese = pd.read_csv('Portuguese.csv')"""
     st.code(code_API, language = 'python')
     
-    st.write(
-        """
-        De datasets bevatten beide de volgende kolommen met bijbehorende omschrijving en informatie:
-        """
-    )
+    Maths = pd.read_csv('Maths.csv')
+    Portugese = pd.read_csv('Portuguese.csv')
     
-    variabelen = pd.read_excel('variables.xlsx', index_col = 0)
+    st.write("""
+        De datasets bevatten beide de volgende kolommen met bijbehorende omschrijving en informatie:"""
+            )
+    
+    variabelen = pd.read_excel("variables.xlsx", index_col = 0)
     st.table(variabelen)
 
-    code_formaat = '''
+    code_formaat = """"
     # Aantal rijen en kolommen dataframe printen
     print('Wiskunde dataframe bestaat uit ', Maths.shape[0], ' rijen en ', Maths.shape[1], ' kolommen.')
     print('Portugees dataframe bestaat uit ', Portugese.shape[0], ' rijen en ', Portugese.shape[1], ' kolommen.')
@@ -89,28 +95,29 @@ def data_analyse():
     print('Aantal missing values in portugees dataframe: ', Portugese.isna().sum().sum())
 
     totaal_rijen_samengevoegd_straks = Maths.shape[0] + Portugese.shape[0]
-    print('Wanneer de dataframes samen worden gevoegd bestaat deze uit ', totaal_rijen_samengevoegd_straks, 'aantal rijen')
-    '''
+    print('Wanneer de dataframes samen worden gevoegd bestaat deze uit ', totaal_rijen_samengevoegd_straks, 'aantal rijen')"""
     st.code(code_formaat, language = 'python')
     
-    st.write(
-        """"Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.,
+    st.write(""""
+        Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.
         Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
 
-        Aantal missing values in wiskunde dataframe:  0,
+        Aantal missing values in wiskunde dataframe:  0
         Aantal missing values in portugees dataframe:  0
-        
-        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen,
-        maar eerst zal gekeken worden naar de eigenschappen van de kolommen voor beide datasets los van elkaar.
-        """
-    )    
+
+        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen, maar eerst zal gekeken 
+        worden naar de eigenschappen van de kolommen voor beide datasets los van elkaar."""
+            )    
     
-    code_desc_math = '''Maths.describe()'''
+    code_desc_math = """Maths.describe()"""
     st.code(code_desc_math, language = 'python')
+    math_desc = Maths.describe()
+    st.write("Hieruit volgt het volgende dataframe:", math_desc)
     
-    code_desc_math = '''Portugese.describe()'''
+    code_desc_math = """"Portugese.describe()"""
     st.code(code_desc_math, language = 'python')
-    
+    port_desc = Portugese.describe()
+    st.write("Hieruit volgt het volgende dataframe:", port_desc)
     
 
 def grafieken():
@@ -121,8 +128,7 @@ def grafieken():
     st.markdown(f"# {list(page_names_to_funcs.keys())[2]}")
     st.write(
         """
-        Hier komen grafieken te staan.
-""")
+        Hier komen grafieken te staan.""")
     
     ## Data inladen m.b.v. csv
     math = pd.read_csv('Maths.csv')
