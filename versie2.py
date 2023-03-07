@@ -78,29 +78,40 @@ def data_analyse():
     variabelen = pd.read_excel('variables.xlsx', index_col = 0)
     st.table(variabelen)
 
-    code_formaat = '''# Aantal rijen en kolommen dataframe printen
-    print('Wiskunde dataframe bestaat uit ', math.shape[0], ' rijen en ', math.shape[1], ' kolommen.')
-    print('Portugees dataframe bestaat uit ', port.shape[0], ' rijen en ', port.shape[1], ' kolommen.')
+    code_formaat = '''
+    # Aantal rijen en kolommen dataframe printen
+    print('Wiskunde dataframe bestaat uit ', Maths.shape[0], ' rijen en ', Maths.shape[1], ' kolommen.')
+    print('Portugees dataframe bestaat uit ', Portugese.shape[0], ' rijen en ', Portugese.shape[1], ' kolommen.')
     print()
 
     # https://datatofish.com/count-nan-pandas-dataframe/
-    print('Aantal missing values in wiskunde dataframe: ', math.isna().sum().sum())
-    print('Aantal missing values in portugees dataframe: ', port.isna().sum().sum())
+    print('Aantal missing values in wiskunde dataframe: ', Maths.isna().sum().sum())
+    print('Aantal missing values in portugees dataframe: ', Portugese.isna().sum().sum())
 
-    totaal_rijen_samengevoegd_straks = math.shape[0] + port.shape[0]
-    print('Wanneer de dataframes samen worden gevoegd bestaat deze uit ', totaal_rijen_samengevoegd_straks, 'aantal rijen')'''
+    totaal_rijen_samengevoegd_straks = Maths.shape[0] + Portugese.shape[0]
+    print('Wanneer de dataframes samen worden gevoegd bestaat deze uit ', totaal_rijen_samengevoegd_straks, 'aantal rijen')
+    '''
     st.code(code_formaat, language = 'python')
     
     st.write(
-        "Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.",
-        """"Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
+        """"Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.,
+        Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
 
-        Aantal missing values in wiskunde dataframe:  0""",
-        """Aantal missing values in portugees dataframe:  0
+        Aantal missing values in wiskunde dataframe:  0,
+        Aantal missing values in portugees dataframe:  0
         
-        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen
+        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen,
+        maar eerst zal gekeken worden naar de eigenschappen van de kolommen voor beide datasets los van elkaar.
         """
     )    
+    
+    code_desc_math = '''Maths.describe()'''
+    st.code(code_desc_math, language = 'python')
+    
+    code_desc_math = '''Portugese.describe()'''
+    st.code(code_desc_math, language = 'python')
+    
+    
 
 def grafieken():
     import streamlit as st
@@ -141,34 +152,10 @@ def grafieken():
     
     InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
     df = df[df['subject']==InvoerVak]
+
     
-#     keuze = 'Wiskunde'
-
-#     perc = df[df['subject'] == keuze].value_counts('Cat_G3') / df[df['subject'] == keuze].shape[0] * 100
-
-#     # https://stackoverflow.com/questions/26097916/convert-pandas-series-to-dataframe
-#     perc = pd.DataFrame({'Cat_G3':perc.index, 'percentages':perc.values})
-#     perc = perc.sort_values(by=['Cat_G3'])
     
-#     # https://plotly.com/python/pie-charts/#pie-chart-with-plotly-express
-#     my_scale = [('A', "green"), ('E', "orange"), ('F', "red")]
-
-#     fig = px.pie(perc,
-#              values='percentages',
-#              names='Cat_G3',
-#              title='Titel',
-#              color = 'percentages',
-#              color_discrete_map={'A':'lightcyan',
-#                                  'B':'cyan',
-#                                  'C':'royalblue',
-#                                  'D': 'darkblue',
-#                                  'E': 'pink',
-#                                  'F': 'blue'}
-#             )
-
-#     fig.update_traces(textposition='inside', textinfo='percent+label')
-    
-#     st.plotly_chart(fig)
+    # Dataframe plot traveltime and G3
     selectie = df[['traveltime','Cat_G3']].groupby(['traveltime','Cat_G3']).value_counts()
     selectie = pd.DataFrame(selectie, columns = ['aantal'])
     selectie = selectie.reset_index()
@@ -176,6 +163,7 @@ def grafieken():
     selectie['percentages'] = selectie['aantal']/selectie['tot_per_groep']*100
     selectie['traveltime'].replace([1,2,3,4],['1) < 15 min','2) 15 tot 30 min','3) 30 tot 60 min', '4) > 60 min'], inplace=True)
     
+    # Plot traveltime and G3
     hoogte_plot = (selectie['percentages'].max() + 10)
     
     fig = px.histogram(selectie,
@@ -200,6 +188,14 @@ def grafieken():
     fig['layout'].pop('updatemenus')
 
     st.plotly_chart(fig)
+    
+    
+    # Plot Dalc and G3
+    fig = px.box(df,
+                 x = "Dalc",
+                 y = "G3")
+    st.plotly_chart(fig)
+    
 
 
 page_names_to_funcs = {
