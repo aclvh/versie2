@@ -46,9 +46,9 @@ def data_analyse():
     import pandas as pd
     
     st.markdown(f'# {list(page_names_to_funcs.keys())[1]}')
-    
     st.write("# Case 2 – Tech report/Blog")
     
+    # Informatie over wat er te lezen is op deze pagina
     st.write("""
         Op deze pagina is informatie te lezen over de volgende twee datasets van kaggele:
         * Maths.csv
@@ -61,41 +61,41 @@ def data_analyse():
         van de datasets worden gekopieerd vanaf Kaggle. Met behulp van deze link kunnen de datasets worden ingeladen op de computer,
         maar kunnen deze ook geünzipt worden. Hierna zullen ze met behulp van pd.read_csv worden ingelezen.
         Met behulp van welke code dit gedaan wordt is hieronder te zien:
-        """
-    )
+        """)
     
+    # API en data inladen
     code_API ="""
-    ## Data inladen m.b.v API
-    !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
-    !unzip mxmh-survey-results.zip
-    
-    ## Data inladen m.b.v. csv
-    Maths = pd.read_csv('Maths.csv')
-    Portugese = pd.read_csv('Portuguese.csv')"""
+        ## Data inladen m.b.v API
+        !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
+        !unzip mxmh-survey-results.zip
+
+        ## Data inladen m.b.v. csv
+        Maths = pd.read_csv('Maths.csv')
+        Portugese = pd.read_csv('Portuguese.csv')"""
     st.code(code_API, language = 'python')
     
     Maths = pd.read_csv('Maths.csv')
     Portugese = pd.read_csv('Portuguese.csv')
     
+    # Kolommen datasets en extra informatie
     st.write("""
-        De datasets bevatten beide de volgende kolommen met bijbehorende omschrijving en informatie:"""
-            )
+        De datasets bevatten beide de volgende kolommen met bijbehorende omschrijving en informatie:""")
     
     variabelen = pd.read_excel("variables.xlsx", index_col = 0)
     st.table(variabelen)
 
     code_formaat = """"
-    # Aantal rijen en kolommen dataframe printen
-    print('Wiskunde dataframe bestaat uit ', Maths.shape[0], ' rijen en ', Maths.shape[1], ' kolommen.')
-    print('Portugees dataframe bestaat uit ', Portugese.shape[0], ' rijen en ', Portugese.shape[1], ' kolommen.')
-    print()
+        # Aantal rijen en kolommen dataframe printen
+        print('Wiskunde dataframe bestaat uit ', Maths.shape[0], ' rijen en ', Maths.shape[1], ' kolommen.')
+        print('Portugees dataframe bestaat uit ', Portugese.shape[0], ' rijen en ', Portugese.shape[1], ' kolommen.')
+        print()
 
-    # https://datatofish.com/count-nan-pandas-dataframe/
-    print('Aantal missing values in wiskunde dataframe: ', Maths.isna().sum().sum())
-    print('Aantal missing values in portugees dataframe: ', Portugese.isna().sum().sum())
+        # https://datatofish.com/count-nan-pandas-dataframe/
+        print('Aantal missing values in wiskunde dataframe: ', Maths.isna().sum().sum())
+        print('Aantal missing values in portugees dataframe: ', Portugese.isna().sum().sum())
 
-    totaal_rijen_samengevoegd_straks = Maths.shape[0] + Portugese.shape[0]
-    print('Wanneer de dataframes samen worden gevoegd bestaat deze uit ', totaal_rijen_samengevoegd_straks, 'aantal rijen')"""
+        totaal_rijen_samengevoegd_straks = Maths.shape[0] + Portugese.shape[0]
+        print('Wanneer de dataframes samen worden gevoegd bestaat deze uit ', totaal_rijen_samengevoegd_straks, 'aantal rijen')"""
     st.code(code_formaat, language = 'python')
     
     st.write(""""
@@ -106,18 +106,41 @@ def data_analyse():
         Aantal missing values in portugees dataframe:  0
 
         Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen, maar eerst zal gekeken 
-        worden naar de eigenschappen van de kolommen voor beide datasets los van elkaar."""
-            )    
+        worden naar de eigenschappen van de kolommen voor beide datasets los van elkaar.""")    
     
     code_desc_math = """Maths.describe()"""
     st.code(code_desc_math, language = 'python')
     math_desc = Maths.describe()
     st.write("Hieruit volgt het volgende dataframe:", math_desc)
     
-    code_desc_math = """"Portugese.describe()"""
-    st.code(code_desc_math, language = 'python')
+    code_desc_port = """"Portugese.describe()"""
+    st.code(code_desc_port, language = 'python')
     port_desc = Portugese.describe()
     st.write("Hieruit volgt het volgende dataframe:", port_desc)
+    
+    # Datasets samenvoeegen
+    st.write(""""
+        Aangezien beide tabellen exact dezelfde kolommen bevatten (ze zijn ook hetzelfde geschreven) kunnen de datasets
+        worden gejoind met behulp van 'concat'. Echter is dan niet meer zichtbaar welke rij over welk vak gaat.
+        Vandaar dat eerst een extra kolom wordt toegevoegd aan beide dataset waarin te zien is over welk vak die rij gaat.
+        Hieronder wordt het stuk code laten zien waarmee dat wordt gedaan en wordt ook laten zien hoe vervolgens de datasets
+        samengevoegd zijn.""")
+    
+    code_samenvoegen = """"
+        # Voor het samenvoegen van de dataframes wil je straks nog wel weten welke rij bij welk vak hoorde
+        Maths['subject'] = 'Wiskunde'
+        Portugese['subject'] = 'Portugees'
+        
+        # Dataframes Maths en Portugese samenvoegen
+        df = pd.concat([Maths, Portugese])
+        """
+    st.code(code_samenvoegen, language = 'python')
+    
+    Maths['subject'] = 'Wiskunde'
+    Portugese['subject'] = 'Portugees'
+    df = pd.concat([Maths, Portugese])
+    
+    st.write("De dataset ziet er nu als volgt uit:", df)
     
 
 def grafieken():
