@@ -233,7 +233,7 @@ def grafieken():
     selectie = pd.DataFrame(selectie, columns = ['aantal'])
     selectie = selectie.reset_index()
     selectie['tot_per_groep'] = selectie.groupby('traveltime')['aantal'].transform('sum')
-    selectie['percentages'] = selectie['aantal']/selectie['tot_per_groep']*100
+    selectie['percentages'] = round(selectie['aantal']/selectie['tot_per_groep']*100,2)
     selectie['traveltime'].replace([1,2,3,4],['1) < 2 uur','2) 2 tot 5 uur','3) ', '4) > 60 min'], inplace=True)
     
     # Plot traveltime and G3
@@ -271,7 +271,7 @@ def grafieken():
     selectie1 = pd.DataFrame(selectie1, columns = ['aantal'])
     selectie1 = selectie1.reset_index()
     selectie1['tot_per_groep'] = selectie1.groupby('studytime')['aantal'].transform('sum')
-    selectie1['percentages'] = selectie1['aantal']/selectie1['tot_per_groep']*100
+    selectie1['percentages'] = round(selectie1['aantal']/selectie1['tot_per_groep']*100,2)
     selectie1['studytime'].replace([1,2,3,4],['1) < 2 uur','2) 2 tot 5 uur','3) 5 tot 10 uur', '4) > 10 uur'], inplace=True)
 
     # Plot traveltime and G3
