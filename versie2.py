@@ -107,7 +107,7 @@ def grafieken():
     df["Cat_G3"] = cat_G3
     
     
-    IvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
+    InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
     VakSelectie = df[df['subject']==InvoerVak]
     
 #     keuze = 'Wiskunde'
