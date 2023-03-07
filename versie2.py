@@ -185,6 +185,14 @@ def grafieken():
     InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
     df = df_sameng[df_sameng['subject']==InvoerVak]
     
+    ##################################################
+    kleuren_cijfer = {'A':'rgb(0,223,45)',
+                      'B':'rgb(0,223,45)',
+                      'C':'rgb(0,223,45)',
+                      'D':'rgb(0,223,45)',
+                      'E':'rgb(255,178,102)',
+                      'F': 'rgb(255,65,65)'}
+    
     #############################################################################################################
     # Grafiek over verdeling van de eindcijfers per vak en geslacht
     st.write("""
@@ -201,9 +209,11 @@ def grafieken():
                        'sex': 'Geslacht'})
 
     newnames = {"F":"Vrouw", "M": "Man"}
+
     fig.for_each_trace(lambda t: t.update(name = newnames[t.name]))
 
-    fig.update_xaxes(showticklabels = False)
+    fig.update_xaxes(ticktext=["Man", "Vrouw"],
+                     tickvals=["M", "F"])
 
     st.plotly_chart(fig)
     
@@ -224,7 +234,7 @@ def grafieken():
     selectie = selectie.reset_index()
     selectie['tot_per_groep'] = selectie.groupby('traveltime')['aantal'].transform('sum')
     selectie['percentages'] = selectie['aantal']/selectie['tot_per_groep']*100
-    selectie['traveltime'].replace([1,2,3,4],['1) < 15 min','2) 15 tot 30 min','3) 30 tot 60 min', '4) > 60 min'], inplace=True)
+    selectie['traveltime'].replace([1,2,3,4],['1) < 2 uur','2) 2 tot 5 uur','3) ', '4) > 60 min'], inplace=True)
     
     # Plot traveltime and G3
     hoogte_plot = (selectie['percentages'].max() + 10)
@@ -233,12 +243,7 @@ def grafieken():
                        y = 'percentages',
                        x = 'Cat_G3',
                        color = 'Cat_G3',
-                       color_discrete_map={'A':'rgb(0,223,45)',
-                                           'B':'rgb(0,223,45)',
-                                           'C':'rgb(0,223,45)',
-                                           'D':'rgb(0,223,45)',
-                                           'E':'rgb(255,178,102)',
-                                           'F': 'rgb(255,65,65)'},
+                       color_discrete_map = kleuren_cijfer,
                        animation_frame = 'traveltime',
                        animation_group = 'Cat_G3')
 
@@ -256,8 +261,44 @@ def grafieken():
         Uit deze grafiek blijkt dus dat mensen minder hoge cijfers halen wanneer zij een langere reistijd naar school hebben.
         """)
     
+    ###################################################################################################################
+    # Plot studytime and G3
+    st.write("""
+        ## Invloed van de hoeveelheid studietijd op studieresultaten
+        In onderstaande grafiek worden de resultaten van een vak onderverdeeld in de categorieën A t/m F. Vervolgens is
+        af te lezen hoeveel procent van de leerlingen dat eindcijfer hebben behaald bij een bepaalde categorie studietijd.""")
+    selectie1 = df[['studytime','Cat_G3']].groupby(['studytime','Cat_G3']).value_counts()
+    selectie1 = pd.DataFrame(selectie1, columns = ['aantal'])
+    selectie1 = selectie1.reset_index()
+    selectie1['tot_per_groep'] = selectie1.groupby('studytime')['aantal'].transform('sum')
+    selectie1['percentages'] = selectie1['aantal']/selectie1['tot_per_groep']*100
+    selectie1['studytime'].replace([1,2,3,4],['1) < 2 uur','2) 2 tot 5 uur','3) 5 tot 10 uur', '4) > 10 uur'], inplace=True)
+
+    # Plot traveltime and G3
+    hoogte_plot = (selectie1['percentages'].max() + 10)
+
+    fig = px.histogram(selectie1,
+                        y = 'percentages',
+                        x = 'Cat_G3',
+                        color = 'Cat_G3',
+                        color_discrete_map = kleuren_cijfer,
+                        animation_frame = 'studytime',
+                        animation_group = 'Cat_G3')
+
+    fig.update_layout(title = 'Relatie tussen studietijd en de hoogte van de cijfers',
+                      xaxis_title = 'Cijfergroep',
+                      yaxis_title = 'Percentage',
+                      legend_title = 'Cijfergroep')
+
+    fig.update_yaxes(range = [0,hoogte_plot])
     
+    st.plotly_chart(fig)
     
+    st.write("""
+        Uit deze grafiek blijkt dus dat mensen minder hoge cijfers halen wanneer zij een langere reistijd naar school hebben.
+        """)
+    
+    ###################################################################################################################
     # Plot Dalc and G3
     st.write("""
         ## Invloed van dagelijks alcoholgebruik op studieresultaten""")
