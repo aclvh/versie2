@@ -171,7 +171,7 @@ def grafieken():
     df_sameng = pd.concat([Maths, Portugese])
 
     cat_G3 = []
-    for G3 in df["G3"]:
+    for G3 in df_sameng["G3"]:
         if G3 < 10 : cat_G3.append("F")
         elif G3 < 12: cat_G3.append("E")
         elif G3 < 14: cat_G3.append("D")
@@ -179,7 +179,7 @@ def grafieken():
         elif G3 < 18: cat_G3.append("B")    
         elif G3 <= 20: cat_G3.append("A")
     # Lijst als kolom toevoegen aan dataset
-    df["Cat_G3"] = cat_G3
+    df_sameng["Cat_G3"] = cat_G3
     
     # Keuezevak voor vak: Wiskunde of Portugees
     InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
