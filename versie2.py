@@ -57,6 +57,20 @@ def data_analyse():
 
         Deze datasets bevatten informatie over de cijfers van leerlingen die natuurkunde en wiskunde volgen op 2 scholen
         in Portugal en de informatie over hun alcoholgebruik etc.
+        
+        De datasets zijn ingeladen met behulp van een API. Door een aantal dingen juist te installeren op een laptop kan een API command
+        van de datasets worden gekopieerd vanaf Kaggle. Met behulp van deze link kunnen de datasets worden ingeladen op de computer,
+        maar kunnen deze ook geünzipt worden. Met behulp van welke code dit gedaan wordt is hieronder te zien:
+        """
+    )
+    
+    code_API = '''## Data inladen m.b.v API
+    !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
+    !unzip mxmh-survey-results.zip'''
+    st.code(code_API, language = 'python')
+    
+    st.write(
+        """
         De datasets bevatten beide de volgende kolommen met bijbehorende omschrijving en informatie:
         """
     )
@@ -64,9 +78,27 @@ def data_analyse():
     variabelen = pd.read_excel('variables.xlsx', index_col = 0)
     st.table(variabelen)
 
+    code_formaat = '''# Aantal rijen en kolommen dataframe printen
+    print('Wiskunde dataframe bestaat uit ', math.shape[0], ' rijen en ', math.shape[1], ' kolommen.')
+    print('Portugees dataframe bestaat uit ', port.shape[0], ' rijen en ', port.shape[1], ' kolommen.')
+    print()
+
+    # https://datatofish.com/count-nan-pandas-dataframe/
+    print('Aantal missing values in wiskunde dataframe: ', math.isna().sum().sum())
+    print('Aantal missing values in portugees dataframe: ', port.isna().sum().sum())
+
+    totaal_rijen_samengevoegd_straks = math.shape[0] + port.shape[0]
+    print('Wanneer de dataframes samen worden gevoegd bestaat deze uit ', totaal_rijen_samengevoegd_straks, 'aantal rijen')'''
+    st.code(code_formaat, language = 'python')
+    
     st.write(
         """
-        test deze regel
+        Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.
+        Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
+
+        Aantal missing values in wiskunde dataframe:  0
+        Aantal missing values in portugees dataframe:  0
+        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen
         """
     )    
 
