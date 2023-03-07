@@ -93,15 +93,13 @@ def data_analyse():
     
     st.write(
         """
-        Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.
-        
-        Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
+        → Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.
+        → Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
 
-        Aantal missing values in wiskunde dataframe:  0
+        → Aantal missing values in wiskunde dataframe:  0
+        → Aantal missing values in portugees dataframe:  0
         
-        Aantal missing values in portugees dataframe:  0
-        
-        Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen
+        → Wanneer de dataframes samen worden gevoegd bestaat deze uit  1044 aantal rijen
         """
     )    
 
