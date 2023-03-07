@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 import streamlit as st
+
+
+# In[ ]:
+
 
 def intro():
     import streamlit as st
@@ -42,6 +46,10 @@ def intro():
 
     * Je levert een gepubliceerde streamlit app op""")
 
+
+# In[ ]:
+
+
 def data_analyse():
     import streamlit as st
     import pandas as pd
@@ -66,15 +74,17 @@ def data_analyse():
     
     # API en data inladen
     code_API ="""
-        # Data inladen m.b.v API
+        # data inladen via API
         !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
-        !unzip mxmh-survey-results.zip
+        !unzip alcohol-effects-on-study.zip
 
         # Data inladen m.b.v. csv
         Maths = pd.read_csv('Maths.csv')
         Portugese = pd.read_csv('Portuguese.csv')"""
     st.code(code_API, language = 'python')
     
+    get_ipython().system('kaggle datasets download -d whenamancodes/alcohol-effects-on-study')
+    get_ipython().system('unzip alcohol-effects-on-study.zip')
     Maths = pd.read_csv('Maths.csv')
     Portugese = pd.read_csv('Portuguese.csv')
     
@@ -115,7 +125,7 @@ def data_analyse():
     st.write(port_desc)
     
     
-    # Datasets samenvoeegen
+    # Datasets samenvoegen
     st.write("""
         Aangezien beide tabellen exact dezelfde kolommen bevatten (ze zijn ook hetzelfde geschreven) en geen opvallende waarden
         bevatten kunnen de datasets worden gejoind met behulp van 'concat'. Echter is dan niet meer zichtbaar welke rij over
@@ -142,7 +152,10 @@ def data_analyse():
     
     st.write("De dataset ziet er nu als volgt uit:", df, "De dataset bestaat nu uit ", aantal_rijen, " rijen en ",
         aantal_kolommen, " aantal_kolommen. Verder bevat de dataset dus 0 missing values.")
-    
+
+
+# In[1]:
+
 
 def grafieken():
     import streamlit as st
@@ -158,7 +171,12 @@ def grafieken():
         Vervolgens kan voor verschillende grafieken informatie gekregen worden over een specifiek vak
         **👈 Hiervoor kan een keuze worden gemaakt in de balk hiernaast**""")
     
-    ## Data inladen m.b.v. csv
+    ###################################################################################################################
+    # Datasets inladen en aanpassen
+    ###################################################################################################################
+    
+    get_ipython().system('kaggle datasets download -d whenamancodes/alcohol-effects-on-study')
+    get_ipython().system('unzip alcohol-effects-on-study.zip')
     Maths = pd.read_csv('Maths.csv')
     Portugese = pd.read_csv('Portuguese.csv')
 
@@ -181,11 +199,13 @@ def grafieken():
     # Lijst als kolom toevoegen aan dataset
     df_sameng["Cat_G3"] = cat_G3
     
+    ###################################################################################################################
     # Keuezevak voor vak: Wiskunde of Portugees
     InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
     df = df_sameng[df_sameng['subject']==InvoerVak]
     
-    ##################################################
+    ###################################################################################################################
+    # Kleurenpallet voor plotjes
     kleuren_cijfer = {'A':'rgb(0,223,45)',
                       'B':'rgb(0,223,45)',
                       'C':'rgb(0,223,45)',
@@ -193,7 +213,7 @@ def grafieken():
                       'E':'rgb(255,178,102)',
                       'F': 'rgb(255,65,65)'}
     
-    #############################################################################################################
+    ###################################################################################################################
     # Grafiek over verdeling van de eindcijfers per vak en geslacht
     st.write("""
         ## Verdeling van de eindcijfers per vak en geslacht
@@ -317,6 +337,10 @@ def grafieken():
                       yaxis_title = 'Eindcijfer')
     
     st.plotly_chart(fig)
+    
+    st.write("""
+        Uit deze grafiek blijkt dus ...................
+        """)
     
     ###################################################################################################################
 
