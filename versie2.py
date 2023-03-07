@@ -45,9 +45,7 @@ def data_analyse():
     import streamlit as st
     import pandas as pd
     
-    st.markdown(f'# {list(page_names_to_funcs.keys())[1]}')
-    st.write("# Case 2 – Tech report/Blog")
-    
+    st.markdown(f'# {list(page_names_to_funcs.keys())[1]}')    
     
     # Informatie over wat er te lezen is op deze pagina
     st.write("""
@@ -142,7 +140,7 @@ def data_analyse():
     aantal_kolommen = df.shape[1]
     
     st.write("De dataset ziet er nu als volgt uit:", df, "De dataset bestaat nu uit ", aantal_rijen, " rijen en ",
-        aantal_kolommen, " aantal_kolommen.")
+        aantal_kolommen, " aantal_kolommen. Verder bevat de dataset dus 0 missing values.")
     
 
 def grafieken():
@@ -230,9 +228,9 @@ def grafieken():
 
 
 page_names_to_funcs = {
-    "—": intro,
+    "Opdrachtomschrijving": intro,
     "Data analyse": data_analyse,
-    "grafieken": grafieken,
+    "Grafieken": grafieken,
 }
 
 demo_name = st.sidebar.selectbox("Choose a demo", page_names_to_funcs.keys())
