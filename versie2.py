@@ -295,7 +295,7 @@ def grafieken():
     st.plotly_chart(fig)
     
     st.write("""
-        Uit deze grafiek blijkt dus dat mensen minder hoge cijfers halen wanneer zij een langere reistijd naar school hebben.
+        Uit deze grafiek blijkt dus ...................
         """)
     
     ###################################################################################################################
