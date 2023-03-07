@@ -179,6 +179,23 @@ def grafieken():
     # Lijst als kolom toevoegen aan dataset
     df["Cat_G3"] = cat_G3
     
+    ###########################################################
+    fig = px.box(df,
+             x = "sex",
+             y = "G3",
+             title = "Verdeling cijfers per vak en geslacht",
+             color = 'sex',
+             facet_col  = 'subject',
+             labels = {'G3': 'Eindcijfer',
+                       'sex': 'Geslacht'})
+
+    newnames = {"F":"Vrouw", "M": "Man"}
+    fig.for_each_trace(lambda t: t.update(name = newnames[t.name]))
+
+    fig.update_xaxes(showticklabels = False)
+
+    st.plotly_chart(fig)
+    ################################################################
     
     # Keuezevak voor vak: Wiskunde of Portugees
     InvoerVak = st.sidebar.selectbox('Selecteer het vak', ('Wiskunde','Portugees'))
