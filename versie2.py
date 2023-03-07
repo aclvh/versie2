@@ -142,25 +142,27 @@ def grafieken():
     
     hoogte_plot = (selectie['percentages'].max() + 10)
     
-    fig = px.histogram(perc,
-             x='percentages',
-             y='Cat_G3',
-             title='Titel',
-             color = 'Cat_G3',
-             color_discrete_map={'A':'rgb(0,223,45)',
-                                 'B':'rgb(0,223,45)',
-                                 'C':'rgb(0,223,45)',
-                                 'D':'rgb(0,223,45)',
-                                 'E':'rgb(255,178,102)',
-                                 'F': 'rgb(255,65,65)'},
-             animation_frame = 'traveltime',
-             animation_group='Cat_G3')
+    fig = px.histogram(selectie,
+                       y = 'percentages',
+                       x = 'Cat_G3',
+                       color = 'Cat_G3',
+                       color_discrete_map={'A':'rgb(0,223,45)',
+                                           'B':'rgb(0,223,45)',
+                                           'C':'rgb(0,223,45)',
+                                           'D':'rgb(0,223,45)',
+                                           'E':'rgb(255,178,102)',
+                                           'F': 'rgb(255,65,65)'},
+                       animation_frame = 'traveltime',
+                       animation_group = 'Cat_G3')
 
-    fig.update_traces(textposition='inside',
-                      textinfo='percent+label')
+    fig.update_layout(title = 'Relatie tussen reistijd en de hoogte van de cijfers',
+                      xaxis_title = 'Cijfergroep',
+                      yaxis_title = 'Percentage',
+                      legend_title = 'Cijfergroep')
+    fig.update_yaxes(range = [0,hoogte_plot])
 
-    fig["layout"].pop("updatemenus")
-    
+    fig['layout'].pop('updatemenus')
+
     st.plotly_chart(fig)
 
 
