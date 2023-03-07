@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import streamlit as st
@@ -102,11 +102,8 @@ def data_analyse():
     st.code(code_formaat, language = 'python')
     
     st.write("""
-        * Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen.
-        * Portugees dataframe bestaat uit  649  rijen en  33  kolommen.
-
-        * Aantal missing values in wiskunde dataframe:  0
-        * Aantal missing values in portugees dataframe:  0""")    
+        * Wiskunde dataframe bestaat uit  395  rijen en  33  kolommen en heeft geen missing values.
+        * Portugees dataframe bestaat uit  649  rijen en  33  kolommen en heeft geen missing values.""")
     
     code_desc_math = """Maths.describe()"""
     st.code(code_desc_math, language = 'python')
@@ -121,11 +118,11 @@ def data_analyse():
     
     # Datasets samenvoeegen
     st.write("""
-        Aangezien beide tabellen exact dezelfde kolommen bevatten (ze zijn ook hetzelfde geschreven) kunnen de datasets
-        worden gejoind met behulp van 'concat'. Echter is dan niet meer zichtbaar welke rij over welk vak gaat.
-        Vandaar dat eerst een extra kolom wordt toegevoegd aan beide dataset waarin te zien is over welk vak die rij gaat.
-        Hieronder wordt het stuk code laten zien waarmee dat wordt gedaan en wordt ook laten zien hoe vervolgens de datasets
-        samengevoegd zijn.""")
+        Aangezien beide tabellen exact dezelfde kolommen bevatten (ze zijn ook hetzelfde geschreven) en geen opvallende waarden
+        bevatten kunnen de datasets worden gejoind met behulp van 'concat'. Echter is dan niet meer zichtbaar welke rij over
+        welk vak gaat. Vandaar dat eerst een extra kolom wordt toegevoegd aan beide dataset waarin te zien is over welk vak
+        die rij gaat. Hieronder wordt het stuk code laten zien waarmee dat wordt gedaan en wordt ook laten zien hoe vervolgens
+        de datasets samengevoegd zijn.""")
     
     code_samenvoegen = """
         # Voor het samenvoegen van de dataframes wil je straks nog wel weten welke rij bij welk vak hoorde
@@ -144,8 +141,8 @@ def data_analyse():
     aantal_rijen = df.shape[0]
     aantal_kolommen = df.shape[1]
     
-    st.write("De dataset ziet er nu als volgt uit:", df, "hij bestaat nu uit ", aantal_rijen, " rijen en ", aantal_kolommen,
-            " aantal_kolommen.")
+    st.write("De dataset ziet er nu als volgt uit:", df, "De dataset bestaat nu uit ", aantal_rijen, " rijen en ",
+        aantal_kolommen, " aantal_kolommen.")
     
 
 def grafieken():
