@@ -300,6 +300,10 @@ def grafieken():
     
     ###################################################################################################################
     # Plot Dalc and G3
+    st.write("""
+        ## Invloed van de hoeveelheid door de weeks alcoholgebruik op studieresultaten
+        In onderstaande grafiek worden de verdelingen van de resultaten van een vak per niveau alcoholgebruik getoond
+        voor het gekozen vak.""")
     df['Dalc'].replace([1,2,3,4,5],
                        ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
                        inplace=True)
