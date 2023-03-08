@@ -257,9 +257,9 @@ def grafieken():
                        ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
                        inplace=True)
 
-    df['health'].replace([1,2,3,4,5],
-                           ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
-                           inplace=True)
+    piedf['health'].replace([1,2,3,4,5],
+                            ['1) uitstekende gezondheid', '2) goede gezondheid', '3) redelijke gezondheid',
+                             '4) matige gezondheid', '5) slechte gezondheid'], inplace=True)
     
     check_dalc1 = st.checkbox('Erg laag')
     check_dalc2 = st.checkbox('Laag')
@@ -269,65 +269,48 @@ def grafieken():
     
     if check_dalc1:
         piedf = piedf[piedf['Dalc']=='1) erg laag']
-        fig = px.pie(data_frame = piedf,
-                 values = "health",
-                 names = "Dalc",
-                 color = "aantal")
-        st.plotly_chart(fig)
+        fig_dalc1 = px.pie(data_frame = piedf,
+                           values = "aantal",
+                           names = "health")
+        fig_dalc1.update_layout(title = "Gezondheid van de studenten",
+                                legend_title = 'Gezondheidsstatus van de studenten')
+        st.plotly_chart(fig_dalc1)
     
     if check_dalc2:
         piedf = piedf[piedf['Dalc']=='2) laag']
-        fig = px.pie(data_frame = piedf,
-                 values = "health",
-                 names = "Dalc",
-                 color = "aantal")
-        st.plotly_chart(fig)
+        fig_dalc2 = px.pie(data_frame = piedf,
+                           values = "aantal",
+                           names = "health")
+        fig_dalc2.update_layout(title = "Gezondheid van de studenten",
+                                legend_title = 'Gezondheidsstatus van de studenten')
+        st.plotly_chart(fig_dalc2)
     
     if check_dalc3:
         piedf = piedf[piedf['Dalc']=='3) gemiddeld']
-        fig = px.pie(data_frame = piedf,
-                 values = "health",
-                 names = "Dalc",
-                 color = "aantal")
-        st.plotly_chart(fig)
+        fig_dalc3 = px.pie(data_frame = piedf,
+                           values = "aantal",
+                           names = "health")
+        fig_dalc3.update_layout(title = "Gezondheid van de studenten",
+                                legend_title = 'Gezondheidsstatus van de studenten')
+        st.plotly_chart(fig_dalc3)
     
     if check_dalc4:
         piedf = piedf[piedf['Dalc']=='4) hoog']
-        fig = px.pie(data_frame = piedf,
-                 values = "health",
-                 names = "Dalc",
-                 color = "aantal")
-        st.plotly_chart(fig)
+        fig_dalc4 = px.pie(data_frame = piedf,
+                           values = "aantal",
+                           names = "health")
+        fig_dalc4.update_layout(title = "Gezondheid van de studenten",
+                                legend_title = 'Gezondheidsstatus van de studenten')
+        st.plotly_chart(fig_dalc4)
     
     if check_dalc5:
         piedf = piedf[piedf['Dalc']=='5) erg hoog']
-        fig = px.pie(data_frame = piedf,
-                 values = "health",
-                 names = "Dalc",
-                 color = "aantal")
-        st.plotly_chart(fig)
-    
-#     if pagina = 'Erg hoog':
-#         piedf = piedf[piedf['Dalc'] == '5) erg hoog']
-        
-#     if pagina = 'Hoog':
-#         piedf = piedf[piedf['Dalc'] == '4) hoog']
-
-#     if pagina = 'Gemiddeld':
-#         piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
-        
-#     if pagina = 'Laag':
-#         piedf = piedf[piedf['Dalc'] == '2) laag']
-        
-#     else:
-#         piedf = piedf[piedf['Dalc']=='1) erg laag']
-    
-#     fig = px.pie(data_frame = piedf,
-#                  values = "health",
-#                  names = "Dalc",
-#                  color = "aantal")
-    
-#     st.plotly_chart(fig)
+        fig_dalc5 = px.pie(data_frame = piedf,
+                           values = "aantal",
+                           names = "health")
+        fig_dalc5.update_layout(title = "Gezondheid van de studenten",
+                                legend_title = 'Gezondheidsstatus van de studenten')
+        st.plotly_chart(fig_dalc5)
     
     st.write("""
         Uit deze grafiek blijkt ...........""")
@@ -346,7 +329,7 @@ def grafieken():
     selectie = selectie.reset_index()
     selectie['tot_per_groep'] = selectie.groupby('traveltime')['aantal'].transform('sum')
     selectie['percentages'] = round(selectie['aantal']/selectie['tot_per_groep']*100,2)
-    selectie['traveltime'].replace([1,2,3,4],['1) < 2 uur','2) 2 tot 5 uur','3) ', '4) > 60 min'], inplace=True)
+    selectie['traveltime'].replace([1,2,3,4],['1) < 15 min','2) 15 tot 30 min','3) 30 tot 60 min', '4) > 60 min'], inplace=True)
     
     # Plot traveltime and G3
     hoogte_plot = (selectie['percentages'].max() + 10)
@@ -380,6 +363,7 @@ def grafieken():
         In onderstaande grafiek worden de resultaten van een vak onderverdeeld in de categorieën A t/m F. Vervolgens is
         af te lezen hoeveel procent van de leerlingen dat eindcijfer hebben behaald bij een bepaalde categorie studietijd.""")
     selectie1 = df[['studytime','Cat_G3']].groupby(['studytime','Cat_G3']).value_counts()
+    
     selectie1 = pd.DataFrame(selectie1, columns = ['aantal'])
     selectie1 = selectie1.reset_index()
     selectie1['tot_per_groep'] = selectie1.groupby('studytime')['aantal'].transform('sum')
