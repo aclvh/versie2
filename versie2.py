@@ -244,6 +244,55 @@ def grafieken():
         Ook blijkt dat mannen over het algemeen iets hogere cijfers halen bij wiskunde van vrouwen.""")
     
     ###################################################################################################################
+    # Plot health and Dalc
+    st.write("""
+        ## Invloed van alcoholgebruik op de gezondheid
+        tekst uitleg.....""")
+    
+    piedf = (df_sameng.value_counts(["Dalc", "Dalc"]).reset_index())
+    piedf.rename(columns = {0: "aantal"}, inplace = True)
+    piedf = piedf.sort_values(by=["Dalc"])
+    
+    piedf['Dalc'].replace([1,2,3,4,5],
+                       ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
+                       inplace=True)
+
+    df['health'].replace([1,2,3,4,5],
+                           ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
+                           inplace=True)
+    
+    
+    checkboxen = ['Erg hoog', 'Hoog', 'Gemiddeld', 'Laag', 'Erg laag']
+    pagina = st.radio('Hoeveelheid alcoholgebruik doordeweeks', checkboxen)
+    st.write("hoi", pagina)
+    
+    if pagina = 'Erg hoog':
+        piedf = piedf[piedf['Dalc'] == '5) erg hoog']
+        
+    if pagina = 'Hoog':
+        piedf = piedf[piedf['Dalc'] == '4) hoog']
+
+    if pagina = 'Gemiddeld':
+        piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
+        
+    if pagina = 'Laag':
+        piedf = piedf[piedf['Dalc'] == '2) laag']
+        
+    else:
+        piedf = piedf[piedf['Dalc']=='1) erg laag']
+    
+    fig = px.pie(data_frame = piedf,
+                 values = "health",
+                 names = "Dalc",
+                 color = "aantal")
+    
+    st.plotly_chart(fig)
+    
+    st.write("""
+        Uit deze grafiek blijkt ...........""")
+    
+    
+    ###################################################################################################################
     # Plot traveltime and G3
     st.write("""
         ## Invloed van reistijd op studieresultaten
