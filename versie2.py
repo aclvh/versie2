@@ -266,16 +266,16 @@ def grafieken():
     pagina = st.radio('Hoeveelheid alcoholgebruik doordeweeks', checkboxen)
     st.write("hoi", pagina)
     
-    if pagina = 'Erg hoog':
+    if pagina == 'Erg hoog':
         piedf = piedf[piedf['Dalc'] == '5) erg hoog']
         
-    if pagina = 'Hoog':
+    if pagina == 'Hoog':
         piedf = piedf[piedf['Dalc'] == '4) hoog']
 
-    if pagina = 'Gemiddeld':
+    if pagina == 'Gemiddeld':
         piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
         
-    if pagina = 'Laag':
+    if pagina == 'Laag':
         piedf = piedf[piedf['Dalc'] == '2) laag']
         
     else:
