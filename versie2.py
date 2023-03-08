@@ -249,7 +249,7 @@ def grafieken():
         ## Invloed van alcoholgebruik op de gezondheid
         tekst uitleg.....""")
     
-    piedf = (df_sameng.value_counts(["Dalc", "Dalc"]).reset_index())
+    piedf = df_sameng.value_counts(["Dalc", "health"]).reset_index()
     piedf.rename(columns = {0: "aantal"}, inplace = True)
     piedf = piedf.sort_values(by=["Dalc"])
     
