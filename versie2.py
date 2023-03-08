@@ -84,8 +84,8 @@ def data_analyse():
         Portugese = pd.read_csv('Portuguese.csv')"""
     st.code(code_API, language = 'python')
     
-    get_ipython().system('kaggle datasets download -d whenamancodes/alcohol-effects-on-study')
-    get_ipython().system('unzip alcohol-effects-on-study.zip')
+#     !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
+#     !unzip alcohol-effects-on-study.zip
     Maths = pd.read_csv('Maths.csv')
     Portugese = pd.read_csv('Portuguese.csv')
     
