@@ -261,14 +261,15 @@ def grafieken():
                             ['1) uitstekende gezondheid', '2) goede gezondheid', '3) redelijke gezondheid',
                              '4) matige gezondheid', '5) slechte gezondheid'], inplace=True)
     
-    check_dalc1 = st.checkbox('Erg laag')
-    check_dalc2 = st.checkbox('Laag')
-    check_dalc3 = st.checkbox('Gemiddeld')
-    check_dalc4 = st.checkbox('Hoog')
-    check_dalc5 = st.checkbox('Erg hoog')
+    st.write("Hoeveelheid alcoholgebruik doordeweeks")
+    check_dalc1 = st.checkbox('1) erg laag')
+    check_dalc2 = st.checkbox('2) laag')
+    check_dalc3 = st.checkbox('3) gemiddeld')
+    check_dalc4 = st.checkbox('4) hoog')
+    check_dalc5 = st.checkbox('5) erg hoog')
     
     if check_dalc1:
-        piedf = piedf[piedf['Dalc']=='1) erg laag']
+        piedf = piedf[piedf['Dalc'] == '1) erg laag']
         fig_dalc1 = px.pie(data_frame = piedf,
                            values = "aantal",
                            names = "health")
@@ -277,7 +278,7 @@ def grafieken():
         st.plotly_chart(fig_dalc1)
     
     if check_dalc2:
-        piedf = piedf[piedf['Dalc']=='2) laag']
+        piedf = piedf[piedf['Dalc'] == '2) laag']
         fig_dalc2 = px.pie(data_frame = piedf,
                            values = "aantal",
                            names = "health")
@@ -286,7 +287,7 @@ def grafieken():
         st.plotly_chart(fig_dalc2)
     
     if check_dalc3:
-        piedf = piedf[piedf['Dalc']=='3) gemiddeld']
+        piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
         fig_dalc3 = px.pie(data_frame = piedf,
                            values = "aantal",
                            names = "health")
@@ -295,7 +296,7 @@ def grafieken():
         st.plotly_chart(fig_dalc3)
     
     if check_dalc4:
-        piedf = piedf[piedf['Dalc']=='4) hoog']
+        piedf = piedf[piedf['Dalc'] == '4) hoog']
         fig_dalc4 = px.pie(data_frame = piedf,
                            values = "aantal",
                            names = "health")
@@ -304,7 +305,7 @@ def grafieken():
         st.plotly_chart(fig_dalc4)
     
     if check_dalc5:
-        piedf = piedf[piedf['Dalc']=='5) erg hoog']
+        piedf = piedf[piedf['Dalc'] == '5) erg hoog']
         fig_dalc5 = px.pie(data_frame = piedf,
                            values = "aantal",
                            names = "health")
