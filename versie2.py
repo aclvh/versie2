@@ -261,32 +261,73 @@ def grafieken():
                            ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
                            inplace=True)
     
+    check_dalc1 = st.checkbox('Erg laag')
+    check_dalc2 = st.checkbox('Laag')
+    check_dalc3 = st.checkbox('Gemiddeld')
+    check_dalc4 = st.checkbox('Hoog')
+    check_dalc5 = st.checkbox('Erg hoog')
     
-    checkboxen = ['Erg hoog', 'Hoog', 'Gemiddeld', 'Laag', 'Erg laag']
-    pagina = st.radio('Hoeveelheid alcoholgebruik doordeweeks', checkboxen)
-    st.write("hoi", pagina)
-    
-    if pagina == 'Erg hoog':
-        piedf = piedf[piedf['Dalc'] == '5) erg hoog']
-        
-    if pagina == 'Hoog':
-        piedf = piedf[piedf['Dalc'] == '4) hoog']
-
-    if pagina == 'Gemiddeld':
-        piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
-        
-    if pagina == 'Laag':
-        piedf = piedf[piedf['Dalc'] == '2) laag']
-        
-    else:
+    if check_dalc1:
         piedf = piedf[piedf['Dalc']=='1) erg laag']
-    
-    fig = px.pie(data_frame = piedf,
+        fig = px.pie(data_frame = piedf,
                  values = "health",
                  names = "Dalc",
                  color = "aantal")
+        st.plotly_chart(fig)
     
-    st.plotly_chart(fig)
+    if check_dalc2:
+        piedf = piedf[piedf['Dalc']=='2) laag']
+        fig = px.pie(data_frame = piedf,
+                 values = "health",
+                 names = "Dalc",
+                 color = "aantal")
+        st.plotly_chart(fig)
+    
+    if check_dalc3:
+        piedf = piedf[piedf['Dalc']=='3) gemiddeld']
+        fig = px.pie(data_frame = piedf,
+                 values = "health",
+                 names = "Dalc",
+                 color = "aantal")
+        st.plotly_chart(fig)
+    
+    if check_dalc4:
+        piedf = piedf[piedf['Dalc']=='4) hoog']
+        fig = px.pie(data_frame = piedf,
+                 values = "health",
+                 names = "Dalc",
+                 color = "aantal")
+        st.plotly_chart(fig)
+    
+    if check_dalc5:
+        piedf = piedf[piedf['Dalc']=='5) erg hoog']
+        fig = px.pie(data_frame = piedf,
+                 values = "health",
+                 names = "Dalc",
+                 color = "aantal")
+        st.plotly_chart(fig)
+    
+#     if pagina = 'Erg hoog':
+#         piedf = piedf[piedf['Dalc'] == '5) erg hoog']
+        
+#     if pagina = 'Hoog':
+#         piedf = piedf[piedf['Dalc'] == '4) hoog']
+
+#     if pagina = 'Gemiddeld':
+#         piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
+        
+#     if pagina = 'Laag':
+#         piedf = piedf[piedf['Dalc'] == '2) laag']
+        
+#     else:
+#         piedf = piedf[piedf['Dalc']=='1) erg laag']
+    
+#     fig = px.pie(data_frame = piedf,
+#                  values = "health",
+#                  names = "Dalc",
+#                  color = "aantal")
+    
+#     st.plotly_chart(fig)
     
     st.write("""
         Uit deze grafiek blijkt ...........""")
