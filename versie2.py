@@ -63,7 +63,7 @@ def data_analyse():
         * Maths.csv
         * Portugese.csv
 
-        Deze datasets bevatten informatie over de cijfers van leerlingen die natuurkunde en wiskunde volgen op 2 scholen
+        Deze datasets bevatten informatie over de cijfers van leerlingen die Portugees en wiskunde volgen op 2 scholen
         in Portugal en de informatie over hun alcoholgebruik etc.
         
         De datasets zijn ingeladen met behulp van een API. Door een aantal dingen juist te installeren op een laptop kan een API command
@@ -255,29 +255,31 @@ def grafieken():
     st.write("""
         ## Invloed van alcoholgebruik op de gezondheid
         Hier kun je het alcoholgebruik doordeweeks selecteren. Er zal dan een pie chart getoond worden waarin de gezondheidstatus 
-        verdeling wordt weergegeven van de studenten met het geselecteerde alcohol gebruik. """)
+        verdeling wordt weergegeven van de studenten met het geselecteerde alcohol gebruik.""")
     
     piedf = df_sameng.value_counts(["Dalc", "health"]).reset_index()
     piedf.rename(columns = {0: "aantal"}, inplace = True)
     piedf = piedf.sort_values(by=["Dalc"])
     
     piedf['Dalc'].replace([1,2,3,4,5],
-                       ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
-                       inplace=True)
+                       ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'], inplace=True)
 
     piedf['health'].replace([1,2,3,4,5],
                             ['1) uitstekende gezondheid', '2) goede gezondheid', '3) redelijke gezondheid',
                              '4) matige gezondheid', '5) slechte gezondheid'], inplace=True)
     
-    # st.write("Hoeveelheid alcoholgebruik doordeweeks")
+#     st.write("Hoeveelheid alcoholgebruik doordeweeks")
     
-    check_dalc1 = st.checkbox('1) erg laag')
-    check_dalc2 = st.checkbox('2) laag')
-    check_dalc3 = st.checkbox('3) gemiddeld')
-    check_dalc4 = st.checkbox('4) hoog')
-    check_dalc5 = st.checkbox('5) erg hoog')
+    check_opties = ['1) erg laag', '2) laag', '3) gemiddeld', '4) hoog', '5) erg hoog']
+    optie = st.radio('Hoeveelheid alcoholgebruik doordeweeks', check_opties)
+#     check_dalc1 = st.checkbox('1) erg laag')
+#     check_dalc2 = st.checkbox('2) laag')
+#     check_dalc3 = st.checkbox('3) gemiddeld')
+#     check_dalc4 = st.checkbox('4) hoog')
+#     check_dalc5 = st.checkbox('5) erg hoog')
     
-    if check_dalc1:
+#     if check_dalc1:
+    if optie = '1) erg laag':
         piedf = piedf[piedf['Dalc'] == '1) erg laag']
         fig_dalc1 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -286,7 +288,8 @@ def grafieken():
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc1)
     
-    if check_dalc2:
+#     if check_dalc2:
+    if optie = '2) laag':
         piedf = piedf[piedf['Dalc'] == '2) laag']
         fig_dalc2 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -295,7 +298,8 @@ def grafieken():
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc2)
     
-    if check_dalc3:
+#     if check_dalc3:
+    if optie = '3) gemiddeld':
         piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
         fig_dalc3 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -304,7 +308,8 @@ def grafieken():
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc3)
     
-    if check_dalc4:
+    if optie = '4) hoog':
+#     if check_dalc4:
         piedf = piedf[piedf['Dalc'] == '4) hoog']
         fig_dalc4 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -313,7 +318,8 @@ def grafieken():
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc4)
     
-    if check_dalc5:
+    if optie = '5) erg hoog'
+#     if check_dalc5:
         piedf = piedf[piedf['Dalc'] == '5) erg hoog']
         fig_dalc5 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -324,7 +330,7 @@ def grafieken():
     
     st.write("""
         Uit deze grafieken blijkt dat er niet een direct verband is tussen het alcohol gebruik door de weeks en de
-        gezondheidsstatus van de studenten. Dit kan komen doordat ziektes niet gerelateerd zijn het alcoholgebruik """)
+        gezondheidsstatus van de studenten. Dit kan komen doordat ziektes niet gerelateerd zijn het alcoholgebruik.""")
     
     
     ###################################################################################################################
@@ -403,8 +409,7 @@ def grafieken():
     
     st.write("""
         Uit deze grafiek is goed te zien dat wanneer er meer tijd in de studie gaat het percentage dat een "E" of een "F" haalt
-        lager wordt
-        """)
+        lager wordt.""")
     
     ###################################################################################################################
     # Plot Dalc and G3
@@ -431,8 +436,7 @@ def grafieken():
     st.write("""
         Uit deze grafiek blijkt dat het alcohol gebruik niet direct een invloed heeft op het behaalde cijfer. Namelijk als het
         alcoholgebruik "erg hoog" is, halen deze student doorgaans een hoger cijfer dan de anderen. Wel is goed te zien dat 
-        Mensen die geen of weinig alcohol drinken door de weeks hogere cijfers kunnen halen
-        """)
+        Mensen die geen of weinig alcohol drinken door de weeks hogere cijfers kunnen halen.""")
     
     ###################################################################################################################
     # Plot age en G3 met dropdown!
