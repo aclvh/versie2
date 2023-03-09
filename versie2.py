@@ -22,7 +22,9 @@ def intro():
     Machine Learning en Data Science projecten.
     In dit project is een data-analyse gedaan over 2 datasets van kaggle.
     Hieronder zal de opdrachtomschrijving van het project worden uitgelegd.
-    Om vervolgens meer informatie over het project te lezen **👈 Selecteer dan een keuze uit de balk hiernaast**.
+    Om vervolgens meer informatie over het project te lezen
+    
+    **👈 Selecteer dan een keuze uit de balk hiernaast**.
     
     ## Opdrachtomschrijving
     Voor deze opdracht moet een tech report (blogpost) worden geschreven over een dataset naar keuze.
