@@ -269,7 +269,7 @@ def grafieken():
                             ['1) uitstekende gezondheid', '2) goede gezondheid', '3) redelijke gezondheid',
                              '4) matige gezondheid', '5) slechte gezondheid'], inplace=True)
     
-    st.write("Hoeveelheid alcoholgebruik doordeweeks")
+    # st.write("Hoeveelheid alcoholgebruik doordeweeks")
     
     check_dalc1 = st.checkbox('1) erg laag')
     check_dalc2 = st.checkbox('2) laag')
