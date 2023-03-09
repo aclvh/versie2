@@ -215,6 +215,12 @@ def grafieken():
                       'E':'rgb(255,178,102)',
                       'F': 'rgb(255,65,65)'}
     
+    kleuren_alcoholgebruik = {"1) erg laag" : "rgb(255,0,0)",
+                             "2) laag" : "rgb(255,65,65)",
+                             "3) gemiddeld" : "rgb(255,178,102)",
+                             "4) hoog" : "rgb(0,233,45)",
+                             "5) erg hoog" : "rgb(0,255,0)"}
+    
     ###################################################################################################################
     # Grafiek over verdeling van de eindcijfers per vak en geslacht
     st.write("""
@@ -247,7 +253,8 @@ def grafieken():
     # Plot health and Dalc
     st.write("""
         ## Invloed van alcoholgebruik op de gezondheid
-        tekst uitleg.....""")
+        Hier kun je het alcoholgebruik doordeweeks selecteren. Er zal dan een pie chart getoond worden waarin de gezondheidstatus 
+        verdeling wordt weergegeven van de studenten met het geselecteerde alcohol gebruik. """)
     
     piedf = df_sameng.value_counts(["Dalc", "health"]).reset_index()
     piedf.rename(columns = {0: "aantal"}, inplace = True)
@@ -262,6 +269,7 @@ def grafieken():
                              '4) matige gezondheid', '5) slechte gezondheid'], inplace=True)
     
     st.write("Hoeveelheid alcoholgebruik doordeweeks")
+    
     check_dalc1 = st.checkbox('1) erg laag')
     check_dalc2 = st.checkbox('2) laag')
     check_dalc3 = st.checkbox('3) gemiddeld')
@@ -314,7 +322,8 @@ def grafieken():
         st.plotly_chart(fig_dalc5)
     
     st.write("""
-        Uit deze grafiek blijkt ...........""")
+        Uit deze grafieken blijkt dat er niet een direct verband is tussen het alcohol gebruik door de weeks en de
+        gezondheidsstatus van de studenten. Dit kan komen doordat ziektes niet gerelateerd zijn het alcoholgebruik """)
     
     
     ###################################################################################################################
@@ -392,7 +401,8 @@ def grafieken():
     st.plotly_chart(fig)
     
     st.write("""
-        Uit deze grafiek blijkt dus ...................
+        Uit deze grafiek is goed te zien dat wanneer er meer tijd in de studie gaat het percentage dat een "E" of een "F" haalt
+        lager wordt
         """)
     
     ###################################################################################################################
@@ -404,10 +414,11 @@ def grafieken():
     df['Dalc'].replace([1,2,3,4,5],
                        ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
                        inplace=True)
-
     fig = px.box(df,
                  x = "Dalc",
-                 y = "G3")
+                 y = "G3",
+                # color = "G3",
+                # color_discrete_map = kleuren_alcoholgebruik)
 
     fig.update_layout(title = 'Relatie tussen alcoholgebruik (door de weeks) en de hoogte van de cijfers',
                       xaxis_title = 'Door de weeks alcoholgebruik',
@@ -416,12 +427,76 @@ def grafieken():
     st.plotly_chart(fig)
     
     st.write("""
-        Uit deze grafiek blijkt dus ...................
+        Uit deze grafiek blijkt dat het alcohol gebruik niet direct een invloed heeft op het behaalde cijfer. Namelijk als het
+        alcoholgebruik "erg hoog" is, halen deze student doorgaans een hoger cijfer dan de anderen. Wel is goed te zien dat 
+        Mensen die geen of weinig alcohol drinken door de weeks hogere cijfers kunnen halen
         """)
     
     ###################################################################################################################
+    # Plot age en G3 met dropdown!
+    st.write("""
+    ## Invloed van de leeftijd van een student op het behaalde resultaat
+    In de onderstaande grafiek wordt de relatie weergegeven tussen de leeftijd van een student en het resultaat dat de
+    student had behaald voor het vak.""")
+    
+    
+    InvoerSchool = st.selectbox("# Selecteer een school:", ("Gabriel Pereira", "Mousinho da Silveira"))
+    
+    df_tijdelijk= df
+    df_tijdelijk["school"].replace(["GP","MS"],
+                     ["Gabriel Pereira", "Mousinho da Silveira"],
+                    inplace = True)
+    
+    df_school = df_tijdelijk[df_tijdelijk["school"] == InvoerSchool]
+    
+    fig_school = px.box(data_frame=df_school,
+          x = "age",
+          y = "G3")
 
+    st.plotly_chart(fig_school)
+    
+    st.write("""
+        Uit deze grafiek blijkt dat er op Gabriel Pereira oudere studenten zitten. De oudere studenten halen lagere cijfers
+        dan de studenten die tussen 15 en 20 zijn. Verder zijn de cijfers van de studenten in deze leeftijdscategorie aardig 
+        geljk
+        """)
+    
+    ######################################################################################################################
+    #Plot 
+    
+    st.write("""
+    ## Invloed van het opleidingsniveau van de ouders op het wel of niet halen van het vak
+    In de onderstaande grafiek wordt de relatie weergegeven tussen het opleidingsniveau van de ouders, en of de student
+    wel of niet het vak heeft gehaald.""")
+    
+    df["hoogste_opleidingsniveau"] = np.where(df["Medu"] >= df["Fedu"], df["Medu"], df["Fedu"])
+    df['behaald'] = df['G3'].apply(lambda x: 'behaald' if x >=10  else 'niet behaald')
+    df['hoogste_opleidingsniveau'].nunique()
+    selectie2 = df[['hoogste_opleidingsniveau','behaald']].groupby(['hoogste_opleidingsniveau','behaald']).value_counts()
+    selectie2 = pd.DataFrame(selectie2, columns=['aantal'])
+    selectie2 = selectie2.reset_index()
+    selectie2['tot_deelname'] = selectie2.groupby('hoogste_opleidingsniveau')['aantal'].transform('sum')
+    selectie2['percentage_behaald'] = round(selectie2['aantal']/selectie2['tot_deelname']*100,2)
+    selectie2['hoogste_opleidingsniveau'].replace([0,1,2,3,4],['geen opleiding','basis onderwijs',
+                                                               '3de klas middelbareschool', 'voortgezet onderwijs afgerond', 
+                                                               'hoger onderwijs'],
+                       inplace=True)
 
+    
+    fig_opleidingouders = px.line(selectie2,x='hoogste_opleidingsniveau', y='percentage_behaald',color='behaald')
+    fig_opleidingouders.update_layout(title="verband behaalde examens en opleidingsniveau ouders",
+                 xaxis_title= "opleidingsniveau ouders",
+                 yaxis_title="percentage behaald")
+
+    st.plotly_chart(fig_opleidingouders)
+    
+    st.write("""
+        Uit deze grafiek blijkt dus ...................
+        """)
+
+    
+    
+    ######################################################################################################################
 page_names_to_funcs = {
     "Opdrachtomschrijving": intro,
     "Data analyse": data_analyse,
