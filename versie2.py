@@ -505,9 +505,10 @@ def grafieken():
                         x = 'age',
                         y = 'G3')
 
-    fig_opleidingouders.update_layout(title = 'Invloed van de leeftijd van een student op het behaalde resultaat',
-                                      xaxis_title = 'Leeftijd',
-                                      yaxis_title = 'Eindcijfer')
+    fig_school.update_layout(title = 'Invloed van de leeftijd van een student op het behaalde resultaat',
+                             xaxis_title = 'Leeftijd',
+                             yaxis_title = 'Eindcijfer')
+    
     st.plotly_chart(fig_school)
     
     st.write("""
