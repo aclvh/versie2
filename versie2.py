@@ -172,6 +172,7 @@ def grafieken():
         cijfers ze een langere reistijd hebben naar school? Dit zijn enkele vragen die beantwoord worden op deze pagina.
         Eerst zullen twee grafieken worden getoond met informatie over beide vakken.
         Vervolgens kan voor verschillende grafieken informatie gekregen worden over een specifiek vak
+        
         **👈 Hiervoor kan een keuze worden gemaakt in de balk hiernaast**""")
     
     ###################################################################################################################
@@ -223,9 +224,13 @@ def grafieken():
                              "5) erg hoog" : "rgb(0,255,0)"}
     
     ###################################################################################################################
+    # Grafieken onafhankelijk van het vak
+    st.write("## Grafieken die onafhankelijk zijn van het vak")
+    ###################################################################################################################
+    
     # Grafiek over verdeling van de eindcijfers per vak en geslacht
     st.write("""
-        ## Verdeling van de eindcijfers per vak en geslacht
+        ### Verdeling van de eindcijfers per vak en geslacht
         In onderstaande grafiek worden de resultaten van een vak vergeleken voor elk geslacht.""")
     
     fig = px.box(df_sameng,
@@ -253,10 +258,11 @@ def grafieken():
     ###################################################################################################################
     # Plot health and Dalc
     st.write("""
-        ## Invloed van alcoholgebruik op de gezondheid
-        Hier kun je het alcoholgebruik doordeweeks selecteren. Er zal dan een pie chart getoond worden waarin de gezondheidstatus 
-        verdeling wordt weergegeven van de studenten met het geselecteerde alcohol gebruik.""")
+        ### Invloed van alcoholgebruik op de gezondheid
+        Hier kan het doordeweeks alcoholgebruik geselecteerd worden. Er zal dan een cirkeldiagram getoond worden waarin de
+        gezondheidstatus verdeling wordt weergegeven van de studenten met het geselecteerde alcohol gebruik.""")
     
+    # Data klaarmaken voor grafiek
     piedf = df_sameng.value_counts(["Dalc", "health"]).reset_index()
     piedf.rename(columns = {0: "aantal"}, inplace = True)
     piedf = piedf.sort_values(by=["Dalc"])
@@ -270,12 +276,6 @@ def grafieken():
     
     genre = st.radio(
     "Hoeveelheidalcoholgebruik doordeweeks", ("1) erg laag","2) laag","3) gemiddeld","4) hoog","5) erg hoog"))
-    
-    #check_dalc1 = st.checkbox("1) erg laag")
-    #check_dalc2 = st.checkbox("2) laag")
-    #check_dalc3 = st.checkbox("3) gemiddeld")
-    #check_dalc4 = st.checkbox("4) hoog")
-    #check_dalc5 = st.checkbox("5) erg hoog")
     
     if genre == "1) erg laag":
         piedf = piedf[piedf['Dalc'] == '1) erg laag']
@@ -313,23 +313,28 @@ def grafieken():
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc4)
     
-    if check_dalc5:
+    else:
         piedf = piedf[piedf['Dalc'] == '5) erg hoog']
         fig_dalc5 = px.pie(data_frame = piedf,
                            values = "aantal",
                            names = "health")
         fig_dalc5.update_layout(title = "Gezondheid van de studenten",
                                 legend_title = 'Gezondheidsstatus van de studenten')
-        st.plotly_chart(fig_dalc5)    
+        st.plotly_chart(fig_dalc5)
+        
     st.write("""
-        Uit deze grafieken blijkt dat er niet een direct verband is tussen het alcohol gebruik door de weeks en de
-        gezondheidsstatus van de studenten. Dit kan komen doordat ziektes niet gerelateerd zijn het alcoholgebruik.""")
+        Uit deze grafieken blijkt dat er niet een direct verband is tussen het doordeweeks alcohol gebruik en de
+        gezondheidsstatus van de studenten. Dit kan komen doordat ziek zijn niet gerelateerd zijn het alcoholgebruik.""")
     
     
     ###################################################################################################################
+    # Grafieken onafhankelijk van het vak
+    st.write("## Grafieken die afhankelijk zijn van het vak")
+    ###################################################################################################################
+    
     # Plot traveltime and G3
     st.write("""
-        ## Invloed van reistijd op studieresultaten
+        ### Invloed van reistijd op studieresultaten
         In onderstaande grafiek worden de resultaten van een vak onderverdeeld in de categorieën A t/m F. Vervolgens is
         af te lezen hoeveel procent van de leerlingen dat eindcijfer hebben behaald.""")
     
@@ -369,7 +374,7 @@ def grafieken():
     ###################################################################################################################
     # Plot studytime and G3
     st.write("""
-        ## Invloed van de hoeveelheid studietijd op studieresultaten
+        ### Invloed van de hoeveelheid studietijd op studieresultaten
         In onderstaande grafiek worden de resultaten van een vak onderverdeeld in de categorieën A t/m F. Vervolgens is
         af te lezen hoeveel procent van de leerlingen dat eindcijfer hebben behaald bij een bepaalde categorie studietijd.""")
     selectie1 = df[['studytime','Cat_G3']].groupby(['studytime','Cat_G3']).value_counts()
@@ -407,7 +412,7 @@ def grafieken():
     ###################################################################################################################
     # Plot Dalc and G3
     st.write("""
-        ## Invloed van de hoeveelheid door de weeks alcoholgebruik op studieresultaten
+        ### Invloed van de hoeveelheid door de weeks alcoholgebruik op studieresultaten
         In onderstaande grafiek worden de verdelingen van de resultaten van een vak per niveau alcoholgebruik getoond
         voor het gekozen vak.""")
     df['Dalc'].replace([1,2,3,4,5],
@@ -434,9 +439,9 @@ def grafieken():
     ###################################################################################################################
     # Plot age en G3 met dropdown!
     st.write("""
-    ## Invloed van de leeftijd van een student op het behaalde resultaat
-    In de onderstaande grafiek wordt de relatie weergegeven tussen de leeftijd van een student en het resultaat dat de
-    student had behaald voor het vak.""")
+        ### Invloed van de leeftijd van een student op het behaalde resultaat
+        In de onderstaande grafiek wordt de relatie weergegeven tussen de leeftijd van een student en het resultaat dat de
+        student had behaald voor het vak.""")
     
     
     InvoerSchool = st.selectbox("# Selecteer een school:", ("Gabriel Pereira", "Mousinho da Silveira"))
@@ -464,9 +469,9 @@ def grafieken():
     #Plot 
     
     st.write("""
-    ## Invloed van het opleidingsniveau van de ouders op het wel of niet halen van het vak
-    In de onderstaande grafiek wordt de relatie weergegeven tussen het opleidingsniveau van de ouders, en of de student
-    wel of niet het vak heeft gehaald.""")
+        ### Invloed van het opleidingsniveau van de ouders op het wel of niet halen van het vak
+        In de onderstaande grafiek wordt de relatie weergegeven tussen het opleidingsniveau van de ouders, en of de student
+        wel of niet het vak heeft gehaald.""")
     
     df["hoogste_opleidingsniveau"] = np.where(df["Medu"] >= df["Fedu"], df["Medu"], df["Fedu"])
     df['behaald'] = df['G3'].apply(lambda x: 'behaald' if x >=10  else 'niet behaald')
