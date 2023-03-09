@@ -270,16 +270,12 @@ def grafieken():
     
 #     st.write("Hoeveelheid alcoholgebruik doordeweeks")
     
-    check_opties = ['1) erg laag', '2) laag', '3) gemiddeld', '4) hoog', '5) erg hoog']
-    optie = st.radio('Hoeveelheid alcoholgebruik doordeweeks', check_opties)
-#     check_dalc1 = st.checkbox('1) erg laag')
-#     check_dalc2 = st.checkbox('2) laag')
-#     check_dalc3 = st.checkbox('3) gemiddeld')
-#     check_dalc4 = st.checkbox('4) hoog')
-#     check_dalc5 = st.checkbox('5) erg hoog')
+#    check_opties = ['1) erg laag', '2) laag', '3) gemiddeld', '4) hoog', '5) erg hoog']
+#    optie = st.radio('Hoeveelheid alcoholgebruik doordeweeks', check_opties)
+    check_dalc1 = st.checkbox('1) erg laag')
     
-#     if check_dalc1:
-    if optie = '1) erg laag':
+    if check_dalc1:
+#     if optie = '1) erg laag':
         piedf = piedf[piedf['Dalc'] == '1) erg laag']
         fig_dalc1 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -287,9 +283,11 @@ def grafieken():
         fig_dalc1.update_layout(title = "Gezondheid van de studenten",
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc1)
+        
+    check_dalc2 = st.checkbox('2) laag')
     
-#     if check_dalc2:
-    if optie = '2) laag':
+    if check_dalc2:
+#     if optie = '2) laag':
         piedf = piedf[piedf['Dalc'] == '2) laag']
         fig_dalc2 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -298,8 +296,10 @@ def grafieken():
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc2)
     
-#     if check_dalc3:
-    if optie = '3) gemiddeld':
+    check_dalc3 = st.checkbox('3) gemiddeld')
+    
+    if check_dalc3:
+#     if optie = '3) gemiddeld':
         piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
         fig_dalc3 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -308,8 +308,10 @@ def grafieken():
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc3)
     
-    if optie = '4) hoog':
-#     if check_dalc4:
+    check_dalc4 = st.checkbox('4) hoog')
+    
+#     if optie = '4) hoog':
+    if check_dalc4:
         piedf = piedf[piedf['Dalc'] == '4) hoog']
         fig_dalc4 = px.pie(data_frame = piedf,
                            values = "aantal",
@@ -318,8 +320,10 @@ def grafieken():
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc4)
     
-    if optie = '5) erg hoog'
-#     if check_dalc5:
+    check_dalc5 = st.checkbox('5) erg hoog')
+    
+#     if optie = '5) erg hoog'
+    if check_dalc5:
         piedf = piedf[piedf['Dalc'] == '5) erg hoog']
         fig_dalc5 = px.pie(data_frame = piedf,
                            values = "aantal",
