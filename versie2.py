@@ -240,7 +240,7 @@ def grafieken():
              color = 'sex',
              facet_col  = 'subject',
              labels = {'G3': 'Eindcijfer',
-                       'sex': "Geslacht'})
+                       'sex': 'Geslacht'})
 
     newnames = {'F':'Vrouw', 'M':'Man'}
 
