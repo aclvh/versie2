@@ -368,8 +368,7 @@ def grafieken():
     st.plotly_chart(fig)
     
     st.write("""
-        Uit deze grafiek blijkt dus dat mensen minder hoge cijfers halen wanneer zij een langere reistijd naar school hebben.
-        """)
+        Uit deze grafiek blijkt dat mensen minder hoge cijfers halen wanneer zij een langere reistijd naar school hebben.""")
     
     ###################################################################################################################
     # Plot studytime and G3
@@ -406,8 +405,8 @@ def grafieken():
     st.plotly_chart(fig)
     
     st.write("""
-        Uit deze grafiek is goed te zien dat wanneer er meer tijd in de studie gaat het percentage dat een "E" of een "F" haalt
-        lager wordt.""")
+        Uit deze grafiek is af te lezen dat wanneer meer tijd aan studeren besteed wordt dat de groep die een "E" of een
+        "F" haalt lager wordt.""")
     
     ###################################################################################################################
     # Plot Dalc and G3
@@ -428,6 +427,8 @@ def grafieken():
     fig.update_layout(title = 'Relatie tussen alcoholgebruik (door de weeks) en de hoogte van de cijfers',
                       xaxis_title = 'Door de weeks alcoholgebruik',
                       yaxis_title = 'Eindcijfer')
+    
+    fig.update_xaxes(categoryorder='category ascending')
     
     st.plotly_chart(fig)
     
@@ -510,3 +511,5 @@ page_names_to_funcs = {
 demo_name = st.sidebar.selectbox("Choose a demo", page_names_to_funcs.keys())
 page_names_to_funcs[demo_name]()
 
+
+# # Titel
