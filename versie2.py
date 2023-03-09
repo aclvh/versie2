@@ -255,6 +255,7 @@ def grafieken():
         Uit deze grafiek blijkt dat vrouwen over het algemeen iets hogere cijfers halen bij Portugees dan mannen.
         Ook blijkt dat mannen over het algemeen iets hogere cijfers halen bij wiskunde van vrouwen.""")
     
+    
     ###################################################################################################################
     # Plot health and Dalc
     st.write("""
@@ -370,7 +371,9 @@ def grafieken():
     st.write("""
         Uit deze grafiek blijkt dat mensen minder hoge cijfers halen wanneer zij een langere reistijd naar school hebben.""")
     
+    
     ###################################################################################################################
+    
     # Plot studytime and G3
     st.write("""
         ### Invloed van de hoeveelheid studietijd op studieresultaten
@@ -408,7 +411,9 @@ def grafieken():
         Uit deze grafiek is af te lezen dat wanneer meer tijd aan studeren besteed wordt dat de groep die een "E" of een
         "F" haalt lager wordt.""")
     
+    
     ###################################################################################################################
+    
     # Plot Dalc and G3
     st.write("""
         ### Invloed van de hoeveelheid door de weeks alcoholgebruik op studieresultaten
@@ -436,12 +441,13 @@ def grafieken():
     
     
     ######################################################################################################################
+    
     # Plot hoogste opleidingsniveau ouders en percentage behaald 
     
     st.write("""
-        ### Invloed van het opleidingsniveau van de ouders op het wel of niet halen van het vak
-        In de onderstaande grafiek wordt de relatie weergegeven tussen het opleidingsniveau van de ouders, en of de student
-        wel of niet het vak heeft gehaald.""")
+        ### Invloed van het hoogst genoten opleidingsniveau van de ouders op het wel of niet halen van het vak
+        In de onderstaande grafiek wordt de relatie weergegeven tussen het hoogst genoten opleidingsniveau van de ouders,
+        en het percentage studenten dat het vak wel/niet heeft gehaald.""")
     
     df['hoogste_opleidingsniveau'] = np.where(df['Medu'] >= df['Fedu'], df['Medu'], df['Fedu'])
     df['behaald'] = df['G3'].apply(lambda x: 'behaald' if x >=10  else 'niet behaald')
@@ -460,22 +466,28 @@ def grafieken():
                                   y = 'percentage_behaald',
                                   color = 'behaald')
                        
-    fig_opleidingouders.update_layout(title = 'verband behaalde examens en opleidingsniveau ouders',
-                                      xaxis_title = 'opleidingsniveau ouders',
-                                      yaxis_title = 'percentage behaald')
+    fig_opleidingouders.update_layout(title = 'Relatie tussen hoogst genoten opleidingsniveau v.d. ouders en het percentage behaalde toetsen',
+                                      xaxis_title = 'Hoogste opleidingsniveau ouders',
+                                      yaxis_title = 'Percentage behaald')
 
     st.plotly_chart(fig_opleidingouders)
     
     st.write("""
-        Uit deze grafiek blijkt dus ...................
-        """)
+        Uit deze grafiek blijkt dat er bij de wiskunde studenten een sterk verband is te zien tussen het opleidingsniveau van
+        de ouders en het behalen van het vak. Hoe hoger het opleidingsniveau dat een van de ouders heeft genoten,
+        hoe groter het percentage is van de studenten die het vak wel heeft gehaald. Bij het vak Portugees is er ook spraken
+        van een verband. Echter is deze laster te zien doordat de studenten waarvan beide ouders geen opleiding hebben wel
+        het vak hebben gehaald. Daarna is een klein verband te zien tussen het opleidingsniveau en het genoten opleidingsniveau. Ook hier is te zien hoe 
+        Hoe hoger het opleidingsniveau, hoe groter het percentage is van de studenten die het vak haalt.""")
 
+    
     ###################################################################################################################
+    
     # Plot age en G3 met dropdown!
     st.write("""
         ### Invloed van de leeftijd van een student op het behaalde resultaat
         In de onderstaande grafiek wordt de relatie weergegeven tussen de leeftijd van een student en het resultaat dat de
-        student behaalt heeft voor het bijbehorende vak.""")
+        student behaalt heeft voor het bijbehorende vak. Dit wordt weergegeven voor een gekozen school.""")
     
     InvoerSchool = st.selectbox("# Selecteer een school:", ("Gabriel Pereira", "Mousinho da Silveira"))
     
@@ -487,16 +499,19 @@ def grafieken():
     df_school = situatie3[situatie3["school"] == InvoerSchool]
     
     fig_school = px.box(data_frame = df_school,
-                        x = "age",
-                        y = "G3")
+                        x = 'age',
+                        y = 'G3')
 
+    fig_opleidingouders.update_layout(title = 'Invloed van de leeftijd van een student op het behaalde resultaat',
+                                      xaxis_title = 'Leeftijd',
+                                      yaxis_title = 'Eindcijfer')
     st.plotly_chart(fig_school)
     
     st.write("""
         Uit deze grafiek blijkt dat er op Gabriel Pereira oudere studenten zitten. De oudere studenten halen lagere cijfers
         dan de studenten die tussen 15 en 20 zijn. Verder zijn de cijfers van de studenten in deze leeftijdscategorie aardig 
-        geljk
-        """)
+        geljk.""")
+    
     
     ######################################################################################################################
 page_names_to_funcs = {
