@@ -473,12 +473,15 @@ def grafieken():
     st.plotly_chart(fig_opleidingouders)
     
     st.write("""
-        Uit deze grafiek blijkt dat er bij de wiskunde studenten een sterk verband is te zien tussen het opleidingsniveau van
-        de ouders en het behalen van het vak. Hoe hoger het opleidingsniveau dat een van de ouders heeft genoten, hoe groter
-        het percentage is van de studenten die het vak wel heeft gehaald. Bij het vak Portugees is er ook spraken van een
-        verband. Echter is deze laster te zien doordat de studenten waarvan beide ouders geen opleiding hebben wel het vak
-        hebben gehaald. Daarna is een klein verband te zien tussen het opleidingsniveau en het genoten opleidingsniveau.
-        Ook hier is te zien hoe hoger het opleidingsniveau, hoe groter het percentage is van de studenten die het vak haalt.""")
+        Uit deze grafiek blijkt dat er bij de wiskunde studenten een sterk verband is te zien tussen het opleidingsniveau van 
+        de ouders en het behalen van het vak. Hoe hoger het opleidingsniveau dat een van de ouders heeft genoten, hoe groter
+        het percentage is van de studenten die het vak wel heeft gehaald.
+        
+        Bij het vak Portugees is er ook spraken van een verband.
+        Echter is deze lastiger te zien doordat de studenten waarvan beide ouders geen opleiding hebben genoten wel het vak
+        hebben gehaald. Echter zit er maar één persoon in deze categorie, waardoor dit een vertekend beeld geeft over het
+        geheel. Op deze categorie na is hier ook te zien: hoe hoger het opleidingsniveau,
+        hoe groter het percentage is van de studenten die het vak haalt.""")
 
     
     ###################################################################################################################
@@ -523,5 +526,3 @@ page_names_to_funcs = {
 demo_name = st.sidebar.selectbox("Kies een pagina", page_names_to_funcs.keys())
 page_names_to_funcs[demo_name]()
 
-
-# # Titel
