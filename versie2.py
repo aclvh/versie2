@@ -66,6 +66,9 @@ def data_analyse():
         Deze datasets bevatten informatie over de cijfers van leerlingen die Portugees en wiskunde volgen op 2 scholen
         in Portugal en de informatie over hun alcoholgebruik etc.
         
+        In Portugal is de becijfering van toetsen anders verdeeld dan in Nederland. Cijfers worden gegeven m.b.v. de
+        getallen 0 t/m 20. Hoe hoger het cijfer hoe beter het resultaat. Een cijfer hoger of gelijk aan 10 is voldoende.
+        
         De datasets zijn ingeladen met behulp van een API. Door een aantal dingen juist te installeren op een laptop kan een API command
         van de datasets worden gekopieerd vanaf Kaggle. Met behulp van deze link kunnen de datasets worden ingeladen op de computer,
         maar kunnen deze ook geünzipt worden. Hierna zullen ze met behulp van pd.read_csv worden ingelezen.
@@ -512,9 +515,18 @@ def grafieken():
     st.plotly_chart(fig_school)
     
     st.write("""
-        Uit deze grafiek blijkt dat er op Gabriel Pereira oudere studenten zitten. De oudere studenten halen lagere cijfers
-        dan de studenten die tussen 15 en 20 zijn. Verder zijn de cijfers van de studenten in deze leeftijdscategorie aardig 
-        geljk.""")
+        * Portugees:
+        
+        Er is duidelijk te zien bij het vak portugees dat de studenten op "Gabriel Pereira" gemiddeld een hoger cijfer halen
+        dan de studenten op "Mousinho da Silveira". Ook is te zien dat op "Gabriel Pereira" het eerste kwartiel van alle 
+        leeftijden boven de 10 ligt, waar het eerste kwartiel voor de meeste leeftijden bij "Mousinho da Silveira" onder 
+        de 10 ligt.
+        
+        * Wiskunde:
+        
+        Bij Wiskunde is er te zien dat er vaker een grotere spreiding is van het behaalde cijfer dan bij Portugees. Ook is
+        te zien dat er niet een verband zit tussen het ouder worden van de studenten en het hoger of lager scoren voor het vak.
+        """)
     
     
     ######################################################################################################################
