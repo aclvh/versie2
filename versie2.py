@@ -162,6 +162,7 @@ def grafieken():
     import streamlit as st
     import pandas as pd
     import plotly.express as px
+    import numpy as np
     #from IPython import get_ipython
     
     st.markdown(f"# {list(page_names_to_funcs.keys())[2]}")
