@@ -14,7 +14,7 @@ def intro():
     import streamlit as st
 
     st.write("# Case 2 – Tech report/Blog")
-    st.sidebar.success("Select a demo above.")
+#     st.sidebar.success("Selecteer een pagina.")
 
     st.markdown(
     """
@@ -171,7 +171,7 @@ def grafieken():
         Heeft de hoeveelheid dagelijkse alcoholgebruik invloed op het uiteindelijke cijfer? Halen leerlingen minder hoge
         cijfers ze een langere reistijd hebben naar school? Dit zijn enkele vragen die beantwoord worden op deze pagina.
         Eerst zullen twee grafieken worden getoond met informatie over beide vakken.
-        Vervolgens kan voor verschillende grafieken informatie gekregen worden over een specifiek vak
+        Vervolgens kan voor verschillende grafieken informatie gekregen worden over een specifiek vak.
         
         **👈 Hiervoor kan een keuze worden gemaakt in de balk hiernaast**""")
     
@@ -179,8 +179,8 @@ def grafieken():
     # Datasets inladen en aanpassen
     ###################################################################################################################
     
-#     !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
-#     !unzip alcohol-effects-on-study.zip
+    # !kaggle datasets download -d whenamancodes/alcohol-effects-on-study
+    # !unzip alcohol-effects-on-study.zip
     Maths = pd.read_csv('Maths.csv')
     Portugese = pd.read_csv('Portuguese.csv')
 
@@ -217,11 +217,11 @@ def grafieken():
                       'E':'rgb(255,178,102)',
                       'F': 'rgb(255,65,65)'}
     
-    kleuren_alcoholgebruik = {"1) erg laag" : "rgb(255,0,0)",
-                             "2) laag" : "rgb(255,65,65)",
-                             "3) gemiddeld" : "rgb(255,178,102)",
-                             "4) hoog" : "rgb(0,233,45)",
-                             "5) erg hoog" : "rgb(0,255,0)"}
+    kleuren_alcoholgebruik = {'1) erg laag' : 'rgb(255,0,0)',
+                              '2) laag' : 'rgb(255,65,65)',
+                              '3) gemiddeld' : 'rgb(255,178,102)',
+                              '4) hoog' : 'rgb(0,233,45)',
+                              '5) erg hoog' : 'rgb(0,255,0)''}
     
     ###################################################################################################################
     # Grafieken onafhankelijk van het vak
@@ -234,20 +234,20 @@ def grafieken():
         In onderstaande grafiek worden de resultaten van een vak vergeleken voor elk geslacht.""")
     
     fig = px.box(df_sameng,
-             x = "sex",
-             y = "G3",
-             title = "Verdeling eindcijfers per vak en geslacht",
+             x = 'sex',
+             y = 'G3',
+             title = 'Verdeling eindcijfers per vak en geslacht',
              color = 'sex',
              facet_col  = 'subject',
              labels = {'G3': 'Eindcijfer',
-                       'sex': 'Geslacht'})
+                       'sex': "Geslacht'})
 
-    newnames = {"F":"Vrouw", "M": "Man"}
+    newnames = {'F':'Vrouw', 'M':'Man'}
 
     fig.for_each_trace(lambda t: t.update(name = newnames[t.name]))
 
-    fig.update_xaxes(ticktext=["Man", "Vrouw"],
-                     tickvals=["M", "F"])
+    fig.update_xaxes(ticktext=['Man', 'Vrouw'],
+                     tickvals=['M', 'F'])
 
     st.plotly_chart(fig)
     
@@ -263,9 +263,9 @@ def grafieken():
         gezondheidstatus verdeling wordt weergegeven van de studenten met het geselecteerde alcohol gebruik.""")
     
     # Data klaarmaken voor grafiek
-    piedf = df_sameng.value_counts(["Dalc", "health"]).reset_index()
-    piedf.rename(columns = {0: "aantal"}, inplace = True)
-    piedf = piedf.sort_values(by=["Dalc"])
+    piedf = df_sameng.value_counts(['Dalc', 'health']).reset_index()
+    piedf.rename(columns = {0: 'aantal'}, inplace = True)
+    piedf = piedf.sort_values(by = ['Dalc'])
     
     piedf['Dalc'].replace([1,2,3,4,5],
                        ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'], inplace=True)
@@ -275,50 +275,50 @@ def grafieken():
                              '4) matige gezondheid', '5) slechte gezondheid'], inplace=True)
     
     genre = st.radio(
-    "Hoeveelheidalcoholgebruik doordeweeks", ("1) erg laag","2) laag","3) gemiddeld","4) hoog","5) erg hoog"))
+    'Hoeveelheidalcoholgebruik doordeweeks', ('1) erg laag', '2) laag', '3) gemiddeld', '4) hoog', '5) erg hoog'))
     
-    if genre == "1) erg laag":
+    if genre == '1) erg laag':
         piedf = piedf[piedf['Dalc'] == '1) erg laag']
         fig_dalc1 = px.pie(data_frame = piedf,
-                           values = "aantal",
-                           names = "health")
-        fig_dalc1.update_layout(title = "Gezondheid van de studenten",
+                           values = 'aantal',
+                           names = 'health')
+        fig_dalc1.update_layout(title = 'Gezondheid van de studenten',
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc1)
     
-    elif genre == "2) laag":
+    elif genre == '2) laag':
         piedf = piedf[piedf['Dalc'] == '2) laag']
         fig_dalc2 = px.pie(data_frame = piedf,
-                           values = "aantal",
-                           names = "health")
-        fig_dalc2.update_layout(title = "Gezondheid van de studenten",
+                           values = 'aantal',
+                           names = 'health')
+        fig_dalc2.update_layout(title = 'Gezondheid van de studenten',
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc2)
     
-    elif genre == "3) gemiddeld":
+    elif genre == '3) gemiddeld':
         piedf = piedf[piedf['Dalc'] == '3) gemiddeld']
         fig_dalc3 = px.pie(data_frame = piedf,
-                           values = "aantal",
-                           names = "health")
-        fig_dalc3.update_layout(title = "Gezondheid van de studenten",
+                           values = 'aantal',
+                           names = 'health')
+        fig_dalc3.update_layout(title = 'Gezondheid van de studenten',
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc3)
     
-    elif genre == "4) hoog":
+    elif genre == '4) hoog':
         piedf = piedf[piedf['Dalc'] == '4) hoog']
         fig_dalc4 = px.pie(data_frame = piedf,
-                           values = "aantal",
-                           names = "health")
-        fig_dalc4.update_layout(title = "Gezondheid van de studenten",
+                           values = 'aantal',
+                           names = 'health')
+        fig_dalc4.update_layout(title = 'Gezondheid van de studenten',
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc4)
     
     else:
         piedf = piedf[piedf['Dalc'] == '5) erg hoog']
         fig_dalc5 = px.pie(data_frame = piedf,
-                           values = "aantal",
-                           names = "health")
-        fig_dalc5.update_layout(title = "Gezondheid van de studenten",
+                           values = 'aantal',
+                           names = 'health')
+        fig_dalc5.update_layout(title = 'Gezondheid van de studenten',
                                 legend_title = 'Gezondheidsstatus van de studenten')
         st.plotly_chart(fig_dalc5)
         
@@ -376,7 +376,7 @@ def grafieken():
         ### Invloed van de hoeveelheid studietijd op studieresultaten
         In onderstaande grafiek worden de resultaten van een vak onderverdeeld in de categorieën A t/m F. Vervolgens is
         af te lezen hoeveel procent van de leerlingen dat eindcijfer hebben behaald bij een bepaalde categorie studietijd.""")
-    selectie1 = df[['studytime','Cat_G3']].groupby(['studytime','Cat_G3']).value_counts()
+    selectie1 = df[['studytime', 'Cat_G3']].groupby(['studytime', 'Cat_G3']).value_counts()
     
     selectie1 = pd.DataFrame(selectie1, columns = ['aantal'])
     selectie1 = selectie1.reset_index()
@@ -400,7 +400,7 @@ def grafieken():
                       yaxis_title = 'Percentage',
                       legend_title = 'Cijfergroep')
 
-    fig.update_yaxes(range = [0,hoogte_plot])
+    fig.update_yaxes(range = [0, hoogte_plot])
     
     st.plotly_chart(fig)
     
@@ -414,15 +414,13 @@ def grafieken():
         ### Invloed van de hoeveelheid door de weeks alcoholgebruik op studieresultaten
         In onderstaande grafiek worden de verdelingen van de resultaten van een vak per niveau alcoholgebruik getoond
         voor het gekozen vak.""")
-    df['Dalc'].replace([1,2,3,4,5],
-                       ['1) erg laag','2) laag','3) gemiddeld', '4) hoog', '5) erg hoog'],
-                       inplace=True)
+    df['Dalc'].replace([1, 2, 3, 4, 5],
+                       ['1) erg laag', '2) laag', '3) gemiddeld', '4) hoog', '5) erg hoog'],
+                       inplace = True)
 
     fig = px.box(df,
                  x = "Dalc",
                  y = "G3")
-                # color = "G3",
-                # color_discrete_map = kleuren_alcoholgebruik)
 
     fig.update_layout(title = 'Relatie tussen alcoholgebruik (door de weeks) en de hoogte van de cijfers',
                       xaxis_title = 'Door de weeks alcoholgebruik',
@@ -433,30 +431,64 @@ def grafieken():
     st.plotly_chart(fig)
     
     st.write("""
-        Uit deze grafiek blijkt dat het alcohol gebruik niet direct een invloed heeft op het behaalde cijfer. Namelijk als het
-        alcoholgebruik "erg hoog" is, halen deze student doorgaans een hoger cijfer dan de anderen. Wel is goed te zien dat 
-        Mensen die geen of weinig alcohol drinken door de weeks hogere cijfers kunnen halen.""")
+        Uit deze grafiek blijkt dat het alcohol gebruik niet direct een invloed heeft op het behaalde cijfer. Wel is goed te
+        zien dat mensen die doordeweeks geen of weinig alcohol drinken hogere cijfers kunnen halen.""")
     
+    
+    ######################################################################################################################
+    # Plot hoogste opleidingsniveau ouders en percentage behaald 
+    
+    st.write("""
+        ### Invloed van het opleidingsniveau van de ouders op het wel of niet halen van het vak
+        In de onderstaande grafiek wordt de relatie weergegeven tussen het opleidingsniveau van de ouders, en of de student
+        wel of niet het vak heeft gehaald.""")
+    
+    df['hoogste_opleidingsniveau'] = np.where(df['Medu'] >= df['Fedu'], df['Medu'], df['Fedu'])
+    df['behaald'] = df['G3'].apply(lambda x: 'behaald' if x >=10  else 'niet behaald')
+    df['hoogste_opleidingsniveau'].nunique()
+    selectie2 = df[['hoogste_opleidingsniveau', 'behaald']].groupby(['hoogste_opleidingsniveau', 'behaald']).value_counts()
+    selectie2 = pd.DataFrame(selectie2, columns = ['aantal'])
+    selectie2 = selectie2.reset_index()
+    selectie2['tot_deelname'] = selectie2.groupby('hoogste_opleidingsniveau')['aantal'].transform('sum')
+    selectie2['percentage_behaald'] = round(selectie2['aantal'] / selectie2['tot_deelname'] * 100, 2)
+    selectie2['hoogste_opleidingsniveau'].replace([0, 1, 2, 3, 4],
+                                                  ['geen opleiding', 'basis onderwijs', '3de klas middelbareschool',
+                                                   'voortgezet onderwijs afgerond', 'hoger onderwijs'], inplace=True)
+                       
+    fig_opleidingouders = px.line(selectie2,
+                                  x = 'hoogste_opleidingsniveau',
+                                  y = 'percentage_behaald',
+                                  color = 'behaald')
+                       
+    fig_opleidingouders.update_layout(title = 'verband behaalde examens en opleidingsniveau ouders',
+                                      xaxis_title = 'opleidingsniveau ouders',
+                                      yaxis_title = 'percentage behaald')
+
+    st.plotly_chart(fig_opleidingouders)
+    
+    st.write("""
+        Uit deze grafiek blijkt dus ...................
+        """)
+
     ###################################################################################################################
     # Plot age en G3 met dropdown!
     st.write("""
         ### Invloed van de leeftijd van een student op het behaalde resultaat
         In de onderstaande grafiek wordt de relatie weergegeven tussen de leeftijd van een student en het resultaat dat de
-        student had behaald voor het vak.""")
-    
+        student behaalt heeft voor het bijbehorende vak.""")
     
     InvoerSchool = st.selectbox("# Selecteer een school:", ("Gabriel Pereira", "Mousinho da Silveira"))
     
-    df_tijdelijk= df
-    df_tijdelijk["school"].replace(["GP","MS"],
-                     ["Gabriel Pereira", "Mousinho da Silveira"],
-                    inplace = True)
+    situatie3 = df
+    situatie3["school"].replace(["GP","MS"],
+                                ["Gabriel Pereira", "Mousinho da Silveira"],
+                                inplace = True)
     
-    df_school = df_tijdelijk[df_tijdelijk["school"] == InvoerSchool]
+    df_school = situatie3[situatie3["school"] == InvoerSchool]
     
-    fig_school = px.box(data_frame=df_school,
-          x = "age",
-          y = "G3")
+    fig_school = px.box(data_frame = df_school,
+                        x = "age",
+                        y = "G3")
 
     st.plotly_chart(fig_school)
     
@@ -467,48 +499,13 @@ def grafieken():
         """)
     
     ######################################################################################################################
-    #Plot 
-    
-    st.write("""
-        ### Invloed van het opleidingsniveau van de ouders op het wel of niet halen van het vak
-        In de onderstaande grafiek wordt de relatie weergegeven tussen het opleidingsniveau van de ouders, en of de student
-        wel of niet het vak heeft gehaald.""")
-    
-    df["hoogste_opleidingsniveau"] = np.where(df["Medu"] >= df["Fedu"], df["Medu"], df["Fedu"])
-    df['behaald'] = df['G3'].apply(lambda x: 'behaald' if x >=10  else 'niet behaald')
-    df['hoogste_opleidingsniveau'].nunique()
-    selectie2 = df[['hoogste_opleidingsniveau','behaald']].groupby(['hoogste_opleidingsniveau','behaald']).value_counts()
-    selectie2 = pd.DataFrame(selectie2, columns=['aantal'])
-    selectie2 = selectie2.reset_index()
-    selectie2['tot_deelname'] = selectie2.groupby('hoogste_opleidingsniveau')['aantal'].transform('sum')
-    selectie2['percentage_behaald'] = round(selectie2['aantal']/selectie2['tot_deelname']*100,2)
-    selectie2['hoogste_opleidingsniveau'].replace([0,1,2,3,4],['geen opleiding','basis onderwijs',
-                                                               '3de klas middelbareschool', 'voortgezet onderwijs afgerond', 
-                                                               'hoger onderwijs'],
-                       inplace=True)
-
-    
-    fig_opleidingouders = px.line(selectie2,x='hoogste_opleidingsniveau', y='percentage_behaald',color='behaald')
-    fig_opleidingouders.update_layout(title="verband behaalde examens en opleidingsniveau ouders",
-                 xaxis_title= "opleidingsniveau ouders",
-                 yaxis_title="percentage behaald")
-
-    st.plotly_chart(fig_opleidingouders)
-    
-    st.write("""
-        Uit deze grafiek blijkt dus ...................
-        """)
-
-    
-    
-    ######################################################################################################################
 page_names_to_funcs = {
     "Opdrachtomschrijving": intro,
     "Data analyse": data_analyse,
     "Grafieken": grafieken,
 }
 
-demo_name = st.sidebar.selectbox("Choose a demo", page_names_to_funcs.keys())
+demo_name = st.sidebar.selectbox("Kies een pagina", page_names_to_funcs.keys())
 page_names_to_funcs[demo_name]()
 
 
